@@ -30,24 +30,36 @@ export default function Sidebar({ open, onClose }) {
         flex flex-col transition-transform duration-200 lg:translate-x-0
         ${open ? "translate-x-0" : "-translate-x-full"}`}
       >
-        <div className="flex items-center justify-between px-6 py-6">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-azure flex items-center justify-center font-display font-bold text-white text-sm">
-              TS
+        {/* Sidebar header */}
+        <div className="px-5 pt-5 pb-4 border-b border-line">
+          {/* Logos row */}
+          <div className="flex items-center justify-between mb-3">
+            <div className="flex items-center gap-2.5">
+              <img
+                src="/tiara-logo.png"
+                alt="Logo TIARA"
+                className="h-10 w-10 object-contain"
+              />
+              <img
+                src="/untan-logo.png"
+                alt="Logo Universitas Tanjungpura"
+                className="h-10 w-10 object-contain"
+              />
             </div>
-            <div>
-              <div className="font-display font-bold text-lg leading-tight text-ink">TIARA</div>
-              <div className="text-[11px] text-inksoft leading-tight">
-                Tracer Study &amp; Prestasi Mahasiswa
-              </div>
+            <button className="lg:hidden text-inksoft hover:text-ink" onClick={onClose} aria-label="Tutup menu">
+              <X size={20} />
+            </button>
+          </div>
+          {/* App name */}
+          <div>
+            <div className="font-display font-bold text-lg leading-tight text-ink">TIARA</div>
+            <div className="text-[11px] text-inksoft leading-tight">
+              Tracer Study &amp; Prestasi Mahasiswa
             </div>
           </div>
-          <button className="lg:hidden text-inksoft" onClick={onClose} aria-label="Tutup menu">
-            <X size={20} />
-          </button>
         </div>
 
-        <nav className="flex-1 px-3 space-y-1 overflow-y-auto">
+        <nav className="flex-1 px-3 space-y-1 overflow-y-auto pt-3">
           {NAV_ITEMS.map((item) => (
             <NavLink
               key={item.to}

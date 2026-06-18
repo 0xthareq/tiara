@@ -16,7 +16,7 @@ const phases = [
     label: "Fase 1",
     title: "Fondasi & Pengumpulan Data",
     status: "done",
-    period: "okt – des 2025",
+    period: "Sep – Nov 2024",
     color: "green",
     items: [
       { text: "Desain skema database alumni & mahasiswa", done: true },
@@ -32,7 +32,7 @@ const phases = [
     label: "Fase 2",
     title: "Dashboard Inti",
     status: "done",
-    period: "jan 2026 – mar 2026",
+    period: "Nov 2024 – Jan 2025",
     color: "green",
     items: [
       { text: "Halaman Beranda — ringkasan statistik & KPI", done: true },
@@ -48,7 +48,7 @@ const phases = [
     label: "Fase 3",
     title: "Analitik & Visualisasi",
     status: "active",
-    period: "apr – jun 2026",
+    period: "Feb – Apr 2025",
     color: "azure",
     items: [
       { text: "Grafik tren kelulusan multi-tahun", done: true },
@@ -64,7 +64,7 @@ const phases = [
     label: "Fase 4",
     title: "Ekspor & Aksesibilitas",
     status: "planned",
-    period: "jul – sep 2026",
+    period: "Mei – Jul 2025",
     color: "amber",
     items: [
       { text: "Ekspor laporan ke PDF / Excel", done: false },
@@ -79,7 +79,7 @@ const phases = [
     label: "Fase 5",
     title: "Pengembangan Lanjutan",
     status: "planned",
-    period: "Okt 2026 →",
+    period: "Agt 2025 →",
     color: "inkfaint",
     items: [
       { text: "Prediksi tren berbasis Machine Learning", done: false },
@@ -123,9 +123,9 @@ export default function Roadmap() {
     <div className="max-w-3xl mx-auto">
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="font-display font-bold text-2xl text-ink mb-1">Roadmap</h1>
+        <h1 className="font-display font-bold text-2xl text-ink mb-1">Roadmap Proyek</h1>
         <p className="text-sm text-inksoft">
-          Rencana pengembangan TIARA - Tracer Study &amp; Prestasi Mahasiswa FMIPA Universitas Tanjungpura.
+          Rencana pengembangan TIARA — Tracer Study &amp; Prestasi Mahasiswa FMIPA Universitas Tanjungpura.
         </p>
       </div>
 
