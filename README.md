@@ -1,4 +1,4 @@
-# TIARA — Tracer Study, Informasi Alumni, dan Prestasi Mahasiswa
+# TIARA - Tracer Study, Informasi Alumni, dan Prestasi Mahasiswa
 
 Dashboard untuk memantau data tracer study lulusan, karier alumni, prestasi mahasiswa, dan kegiatan di luar kampus FMIPA Universitas Tanjungpura. Data diisi lewat Google Form, tersimpan di Google Sheet, file pendukung (sertifikat, surat keterangan, dsb.) otomatis tersimpan di Google Drive — dashboard ini membaca semuanya dan menyajikannya sebagai statistik dan grafik.
 
