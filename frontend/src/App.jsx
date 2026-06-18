@@ -5,6 +5,7 @@ import Kelulusan from "./pages/Kelulusan.jsx";
 import Karier from "./pages/Karier.jsx";
 import Prestasi from "./pages/Prestasi.jsx";
 import Kegiatan from "./pages/Kegiatan.jsx";
+import Roadmap from "./pages/Roadmap.jsx";
 
 export default function App() {
   return (
@@ -15,6 +16,7 @@ export default function App() {
         <Route path="/karier" element={<Karier />} />
         <Route path="/prestasi" element={<Prestasi />} />
         <Route path="/kegiatan" element={<Kegiatan />} />
+        <Route path="/roadmap" element={<Roadmap />} />
       </Route>
     </Routes>
   );
