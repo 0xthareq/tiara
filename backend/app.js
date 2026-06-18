@@ -13,3 +13,5 @@ app.use("/api", router);
 app.get("/", (req, res) => {
   res.json({ name: "TIARA API", status: "ok", demoMode: isDemoMode() });
 });
+
+export default app;
