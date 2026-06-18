@@ -123,7 +123,7 @@ export default function Roadmap() {
     <div className="max-w-3xl mx-auto">
       {/* Page header */}
       <div className="mb-8">
-        <h1 className="font-display font-bold text-2xl text-ink mb-1">Roadmap Proyek</h1>
+        <h1 className="font-display font-bold text-2xl text-ink mb-1">Roadmap</h1>
         <p className="text-sm text-inksoft">
           Rencana pengembangan TIARA - Tracer Study &amp; Prestasi Mahasiswa FMIPA Universitas Tanjungpura.
         </p>
