@@ -32,30 +32,45 @@ export default function Sidebar({ open, onClose }) {
       >
         {/* Sidebar header */}
         <div className="px-5 pt-5 pb-4 border-b border-line">
-          {/* Logos row */}
-          <div className="flex items-center justify-between mb-3">
-            <div className="flex items-center gap-2.5">
-              <img
-                src="/tiara-logo.png"
-                alt="Logo TIARA"
-                className="h-10 w-10 object-contain"
-              />
-              <img
-                src="/untan-logo.png"
-                alt="Logo Universitas Tanjungpura"
-                className="h-10 w-10 object-contain"
-              />
+          <div className="flex items-center justify-between">
+            {/* Left: logos + institution name */}
+            <div className="flex items-center gap-3">
+              {/* Two logos side by side */}
+              <div className="flex items-center gap-1.5">
+                <img
+                  src="/untan-logo.png"
+                  alt="Logo Universitas Tanjungpura"
+                  className="h-10 w-10 object-contain"
+                />
+                <img
+                  src="/tiara-logo.png"
+                  alt="Logo TIARA"
+                  className="h-10 w-10 object-contain"
+                />
+              </div>
+
+              {/* Divider */}
+              <div className="w-px h-9 bg-line" />
+
+              {/* Institution name */}
+              <div className="leading-tight">
+                <div className="text-sm font-semibold text-ink tracking-tight">
+                  Fakultas MIPA
+                </div>
+                <div className="text-[12px] font-serif italic text-inksoft">
+                  Universitas Tanjungpura
+                </div>
+              </div>
             </div>
-            <button className="lg:hidden text-inksoft hover:text-ink" onClick={onClose} aria-label="Tutup menu">
+
+            {/* Mobile close button */}
+            <button
+              className="lg:hidden text-inksoft hover:text-ink ml-2"
+              onClick={onClose}
+              aria-label="Tutup menu"
+            >
               <X size={20} />
             </button>
-          </div>
-          {/* App name */}
-          <div>
-            <div className="font-display font-bold text-lg leading-tight text-ink">TIARA</div>
-            <div className="text-[11px] text-inksoft leading-tight">
-              Tracer Study &amp; Prestasi Mahasiswa
-            </div>
           </div>
         </div>
 
