@@ -79,14 +79,14 @@ export default function Landing() {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-azure text-white text-sm font-semibold shadow-card hover:bg-azuredeep transition-colors"
           >
             Lihat Dashboard
-            <ArrowDown size={16} strokeWidth={2.2} />
+            <ArrowUpRight size={16} strokeWidth={2.2} />
           </Link>
           <a
             href="#isi-form"
             className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-line bg-surface text-ink text-sm font-semibold hover:border-azure hover:text-azure transition-colors"
           >
             Isi Form
-            <ArrowUpRight size={16} strokeWidth={2.2} />
+            <ArrowDown size={16} strokeWidth={2.2} />
           </a>
         </div>
       </section>
