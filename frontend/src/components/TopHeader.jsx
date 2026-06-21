@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { ExternalLink, Map, LayoutGrid, Menu } from "lucide-react";
 
 export default function TopHeader({ onMenuOpen }) {
@@ -17,8 +17,8 @@ export default function TopHeader({ onMenuOpen }) {
             <Menu size={22} />
           </button>
 
-          {/* Logos */}
-          <div className="flex items-center gap-1.5">
+          {/* Logos — klik balik ke landing page */}
+          <Link to="/" className="flex items-center gap-1.5 shrink-0">
             <img
               src="/untan-logo.png"
               alt="Logo Universitas Tanjungpura"
@@ -29,7 +29,7 @@ export default function TopHeader({ onMenuOpen }) {
               alt="Logo TIARA"
               className="h-10 w-10 object-contain"
             />
-          </div>
+          </Link>
 
           {/* Divider */}
           <div className="hidden sm:block w-px h-9 bg-line" />
@@ -58,7 +58,7 @@ export default function TopHeader({ onMenuOpen }) {
           </a>
 
           <NavLink
-            to="/roadmap"
+            to="/dashboard/roadmap"
             className={({ isActive }) =>
               `flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium transition-colors ${
                 isActive

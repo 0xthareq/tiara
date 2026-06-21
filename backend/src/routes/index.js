@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { config, isDemoMode, SHEET_NAMES } from "../config.js";
+import { config, isDemoMode } from "../config.js";
 import { getSheetRows } from "../sheetsClient.js";
 import {
   aggregateTracerStudy,
@@ -30,7 +30,7 @@ router.get("/health", (req, res) => {
 router.get(
   "/tracer-study",
   handle(async (req, res) => {
-    const rows = await getSheetRows(SHEET_NAMES.tracerStudy);
+    const rows = await getSheetRows("tracerStudy");
     respond(res, aggregateTracerStudy(rows, config.targets));
   })
 );
@@ -38,7 +38,7 @@ router.get(
 router.get(
   "/karir",
   handle(async (req, res) => {
-    const rows = await getSheetRows(SHEET_NAMES.karir);
+    const rows = await getSheetRows("karir");
     respond(res, aggregateKarir(rows, config.targets));
   })
 );
@@ -46,7 +46,7 @@ router.get(
 router.get(
   "/prestasi",
   handle(async (req, res) => {
-    const rows = await getSheetRows(SHEET_NAMES.prestasi);
+    const rows = await getSheetRows("prestasi");
     respond(res, aggregatePrestasi(rows));
   })
 );
@@ -54,7 +54,7 @@ router.get(
 router.get(
   "/kegiatan",
   handle(async (req, res) => {
-    const rows = await getSheetRows(SHEET_NAMES.kegiatan);
+    const rows = await getSheetRows("kegiatan");
     respond(res, aggregateKegiatan(rows));
   })
 );
@@ -63,10 +63,10 @@ router.get(
   "/overview",
   handle(async (req, res) => {
     const [tracerRows, karirRows, prestasiRows, kegiatanRows] = await Promise.all([
-      getSheetRows(SHEET_NAMES.tracerStudy),
-      getSheetRows(SHEET_NAMES.karir),
-      getSheetRows(SHEET_NAMES.prestasi),
-      getSheetRows(SHEET_NAMES.kegiatan),
+      getSheetRows("tracerStudy"),
+      getSheetRows("karir"),
+      getSheetRows("prestasi"),
+      getSheetRows("kegiatan"),
     ]);
 
     const tracerStudy = aggregateTracerStudy(tracerRows, config.targets);

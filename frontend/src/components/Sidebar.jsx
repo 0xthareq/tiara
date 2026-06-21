@@ -9,11 +9,11 @@ import {
 } from "lucide-react";
 
 const NAV_ITEMS = [
-  { to: "/",          label: "Beranda",               icon: LayoutDashboard },
-  { to: "/kelulusan", label: "Tracer Study Kelulusan", icon: GraduationCap  },
-  { to: "/karier",    label: "Karier Alumni",          icon: Briefcase       },
-  { to: "/prestasi",  label: "Prestasi Mahasiswa",     icon: Trophy          },
-  { to: "/kegiatan",  label: "Kegiatan & Pertukaran",  icon: Globe           },
+  { to: "/dashboard",           label: "Beranda",               icon: LayoutDashboard },
+  { to: "/dashboard/kelulusan", label: "Tracer Study Kelulusan", icon: GraduationCap  },
+  { to: "/dashboard/karier",    label: "Karier Alumni",          icon: Briefcase       },
+  { to: "/dashboard/prestasi",  label: "Prestasi Mahasiswa",     icon: Trophy          },
+  { to: "/dashboard/kegiatan",  label: "Kegiatan & Pertukaran",  icon: Globe           },
 ];
 
 export default function Sidebar({ open, onClose }) {
@@ -55,7 +55,7 @@ export default function Sidebar({ open, onClose }) {
             <NavLink
               key={item.to}
               to={item.to}
-              end={item.to === "/"}
+              end={item.to === "/dashboard"}
               onClick={onClose}
               className={({ isActive }) =>
                 `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${

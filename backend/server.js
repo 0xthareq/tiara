@@ -18,8 +18,10 @@ if (fs.existsSync(frontendDist)) {
 app.listen(config.port, () => {
   console.log(`\nTIARA backend berjalan di http://localhost:${config.port}`);
   if (isDemoMode()) {
-    console.log("Mode: DEMO (data contoh) — isi .env dengan SPREADSHEET_ID & kredensial Google untuk data asli.\n");
+    console.log("Mode: DEMO (data contoh) — isi .env dengan SPREADSHEET_ID_TRACER, SPREADSHEET_ID_PRESTASI & kredensial Google untuk data asli.\n");
   } else {
-    console.log(`Mode: LIVE — membaca spreadsheet ${config.spreadsheetId}\n`);
+    console.log(`Mode: LIVE`);
+    console.log(`  - Tracer Study : ${config.spreadsheetIds.tracerStudy}`);
+    console.log(`  - Prestasi     : ${config.spreadsheetIds.prestasi}\n`);
   }
 });

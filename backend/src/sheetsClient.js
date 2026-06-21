@@ -50,13 +50,30 @@ function rowsToObjects(values) {
  * Mengambil seluruh baris dari satu tab/sheet sebagai array of objects,
  * dengan baris pertama dijadikan nama kolom (header).
  * Otomatis memakai data contoh apabila aplikasi berjalan dalam mode demo.
+ *
+ * @param {string} sheetKey - salah satu key di SHEET_NAMES (mis. "tracerStudy", "karir", "prestasi", "kegiatan")
  */
-export async function getSheetRows(sheetName) {
+export async function getSheetRows(sheetKey) {
   if (isDemoMode()) {
-    return MOCK_ROWS[sheetName] || [];
+    // Mode demo memetakan langsung dari nama tab di MOCK_ROWS.
+    const { SHEET_NAMES } = await import("./config.js");
+    const entry = SHEET_NAMES[sheetKey];
+    return MOCK_ROWS[entry?.tab] || [];
   }
 
-  const cached = cache.get(sheetName);
+  const { SHEET_NAMES } = await import("./config.js");
+  const entry = SHEET_NAMES[sheetKey];
+  if (!entry) throw new Error(`Sheet key tidak dikenal: ${sheetKey}`);
+
+  const spreadsheetId = config.spreadsheetIds[entry.spreadsheetKey];
+  if (!spreadsheetId) {
+    throw new Error(
+      `Spreadsheet ID untuk "${entry.spreadsheetKey}" belum diisi di .env`
+    );
+  }
+
+  const cacheKey = `${spreadsheetId}::${entry.tab}`;
+  const cached = cache.get(cacheKey);
   if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
     return cached.data;
   }
@@ -65,12 +82,12 @@ export async function getSheetRows(sheetName) {
   const sheets = google.sheets({ version: "v4", auth: authClient });
 
   const response = await sheets.spreadsheets.values.get({
-    spreadsheetId: config.spreadsheetId,
-    range: `${sheetName}!A1:Z2000`,
+    spreadsheetId,
+    range: `${entry.tab}!A1:Z2000`,
   });
 
   const rows = rowsToObjects(response.data.values || []);
-  cache.set(sheetName, { data: rows, timestamp: Date.now() });
+  cache.set(cacheKey, { data: rows, timestamp: Date.now() });
   return rows;
 }
 

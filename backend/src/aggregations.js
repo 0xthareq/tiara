@@ -7,12 +7,78 @@ const toNum = (v) => {
 const pct = (numerator, denominator) =>
   denominator > 0 ? Math.round((numerator / denominator) * 1000) / 10 : 0;
 
+/* ---------------------------------------------------------
+   Helper: derive Jenjang (S1/S2) dari teks Program Studi.
+   Form tidak punya kolom Jenjang terpisah — opsi dropdownnya
+   sudah membedakan "S2 Kimia" dari prodi lain (default S1).
+   --------------------------------------------------------- */
+function deriveJenjang(programStudi) {
+  return /^s2/i.test(String(programStudi || "").trim()) ? "S2" : "S1";
+}
+
+/* ---------------------------------------------------------
+   Helper: ubah jawaban kategori "Masa Tunggu" dari Google Form
+   menjadi perkiraan angka bulan, supaya tetap bisa dihitung
+   rata-rata / dibandingkan ke target. Tetap mendukung input
+   angka murni (mis. dari data demo / input manual).
+   --------------------------------------------------------- */
+function parseMasaTunggu(raw) {
+  if (raw === null || raw === undefined || raw === "") return null;
+  const s = String(raw).trim();
+
+  const n = toNum(s);
+  if (n !== null) return n; // sudah berupa angka
+
+  if (/1,5|1\.5/.test(s)) return 19; // "> 1,5 tahun"
+  if (/>\s*1\s*tahun/i.test(s)) return 13; // "> 1 tahun"
+  if (/6.*12/.test(s)) return 9; // "6 - 12 bulan"
+  if (/<\s*6/.test(s)) return 3; // "< 6 bulan"
+  return null;
+}
+
+/* ---------------------------------------------------------
+   Helper: ubah jawaban kategori "Gaji vs UMR" menjadi rasio
+   numerik perkiraan, untuk dibandingkan ke target IKU 1.
+   --------------------------------------------------------- */
+function parseRasioGaji(raw) {
+  if (raw === null || raw === undefined || raw === "") return null;
+  const s = String(raw).trim();
+
+  const n = toNum(s);
+  if (n !== null) return n; // sudah berupa angka
+
+  if (/<\s*1,2|<\s*1\.2/.test(s)) return 1.0; // "< 1,2x UMR"
+  if (/>\s*2/.test(s)) return 2.5; // "> 2x UMR"
+  if (/1,2.*2|1\.2.*2/.test(s)) return 1.5; // "1,2 - 2x UMR"
+  return null;
+}
+
+/* ---------------------------------------------------------
+   Helper: normalisasi label status karir. Pilihan di Google
+   Form pakai kata "Wiraswasta" / "Melanjutkan Studi" / "Belum
+   Bekerja / Sedang Mencari Pekerjaan" — disamakan ke label
+   kanonik yang dipakai di seluruh dashboard.
+   --------------------------------------------------------- */
+function normalizeStatus(raw) {
+  const s = String(raw || "").trim();
+  if (s === "Bekerja") return "Bekerja";
+  if (s === "Wiraswasta" || s === "Wirausaha") return "Wirausaha";
+  if (s === "Melanjutkan Studi" || s === "Lanjut Studi") return "Lanjut Studi";
+  if (s.startsWith("Belum Bekerja")) return "Belum Bekerja";
+  return s;
+}
+
 /* =========================================================
    1. Tracer Study — Kelulusan Tepat Waktu
    ========================================================= */
 export function aggregateTracerStudy(rows, targets) {
+  const enriched = rows.map((r) => ({
+    ...r,
+    Jenjang: r.Jenjang || deriveJenjang(r.ProgramStudi),
+  }));
+
   const byJenjang = { S1: [], S2: [] };
-  rows.forEach((r) => {
+  enriched.forEach((r) => {
     if (byJenjang[r.Jenjang]) byJenjang[r.Jenjang].push(r);
   });
 
@@ -29,7 +95,7 @@ export function aggregateTracerStudy(rows, targets) {
   });
 
   const trendMap = new Map();
-  rows.forEach((r) => {
+  enriched.forEach((r) => {
     const key = `${r.TahunLulus}__${r.Jenjang}`;
     if (!trendMap.has(key)) {
       trendMap.set(key, { tahun: r.TahunLulus, jenjang: r.Jenjang, total: 0, tepatWaktu: 0 });
@@ -42,7 +108,7 @@ export function aggregateTracerStudy(rows, targets) {
     .map((e) => ({ ...e, pct: pct(e.tepatWaktu, e.total) }))
     .sort((a, b) => (a.tahun > b.tahun ? 1 : -1));
 
-  return { summary, trend, tableRows: rows };
+  return { summary, trend, tableRows: enriched };
 }
 
 /* =========================================================
@@ -50,17 +116,19 @@ export function aggregateTracerStudy(rows, targets) {
    ========================================================= */
 export function aggregateKarir(rows, targets) {
   const enriched = rows.map((r) => {
-    const masaTunggu = toNum(r.MasaTungguBulan);
-    const rasioGaji = toNum(r.RasioGajiUMR);
+    const statusUtama = normalizeStatus(r.StatusUtama);
+    const masaTunggu = parseMasaTunggu(r.MasaTungguBulan);
+    const rasioGaji = parseRasioGaji(r.RasioGajiUMR);
     const layak =
-      (r.StatusUtama === "Bekerja" || r.StatusUtama === "Wirausaha") &&
+      (statusUtama === "Bekerja" || statusUtama === "Wirausaha") &&
       masaTunggu !== null &&
       masaTunggu <= targets.masaTungguBulan &&
       rasioGaji !== null &&
       rasioGaji >= targets.rasioGajiUmr;
-    const memenuhiIku1 = layak || r.StatusUtama === "Lanjut Studi";
+    const memenuhiIku1 = layak || statusUtama === "Lanjut Studi";
     return {
       ...r,
+      StatusUtama: statusUtama,
       MasaTungguBulan: masaTunggu,
       RasioGajiUMR: rasioGaji,
       MemenuhiIKU1: memenuhiIku1 ? "Ya" : "Tidak",
