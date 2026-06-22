@@ -21,6 +21,9 @@ const CAPAIAN_COLORS = {
   "Juara 1": "#1E4FDE",
   "Juara 2": "#5B7FF0",
   "Juara 3": "#9BB4F7",
+  "Harapan 1": "#2AA87A",
+  "Harapan 2": "#5EC9A0",
+  "Harapan 3": "#A0E4C8",
   Finalis: "#E08A2C",
   Favorit: "#9BA0AC",
 };
@@ -48,7 +51,7 @@ export default function Prestasi() {
     <div>
       <PageHeader
         title="Prestasi Mahasiswa"
-        subtitle="Rekap mahasiswa S1 yang meraih prestasi di luar program studi pada tingkat internasional, nasional, dan provinsi."
+        subtitle="Rekap mahasiswa yang meraih prestasi di berbagai tingkat: internasional, nasional, provinsi, universitas, dan fakultas."
         demoMode={payload.meta.demoMode}
       />
 

@@ -171,8 +171,8 @@ export function aggregateKarir(rows, targets) {
 /* =========================================================
    3. Prestasi Mahasiswa
    ========================================================= */
-const TINGKAT_ORDER = ["Internasional", "Nasional", "Provinsi"];
-const CAPAIAN_ORDER = ["Juara 1", "Juara 2", "Juara 3", "Finalis", "Favorit"];
+const TINGKAT_ORDER = ["Internasional", "Nasional", "Provinsi", "Universitas", "Fakultas"];
+const CAPAIAN_ORDER = ["Juara 1", "Juara 2", "Juara 3", "Harapan 1", "Harapan 2", "Harapan 3", "Finalis", "Favorit"];
 
 export function aggregatePrestasi(rows) {
   const matrix = TINGKAT_ORDER.map((tingkat) => {

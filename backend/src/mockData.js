@@ -104,8 +104,8 @@ const KEGIATAN_LOMBA = [
   "Kompetisi Riset Kelautan Tingkat Provinsi",
   "Hackathon Sistem Informasi Kalimantan",
 ];
-const TINGKAT = ["Internasional", "Nasional", "Provinsi"];
-const CAPAIAN = ["Juara 1", "Juara 2", "Juara 3", "Finalis", "Favorit"];
+const TINGKAT = ["Internasional", "Nasional", "Provinsi", "Universitas", "Fakultas"];
+const CAPAIAN = ["Juara 1", "Juara 2", "Juara 3", "Harapan 1", "Harapan 2", "Harapan 3", "Finalis", "Favorit"];
 const prestasi = [];
 for (let i = 1; i <= 45; i++) {
   prestasi.push({
@@ -113,7 +113,7 @@ for (let i = 1; i <= 45; i++) {
     Nama: fullName(),
     ProgramStudi: pick(PRODI_S1),
     NamaKegiatan: pick(KEGIATAN_LOMBA),
-    Tingkat: pick([...TINGKAT, ...TINGKAT, "Nasional"]),
+    Tingkat: pick([...TINGKAT, "Nasional", "Universitas", "Fakultas"]),
     Capaian: pick(CAPAIAN),
     Tahun: String(pick([2023, 2024, 2025])),
     BuktiLink: "https://drive.google.com/open?id=1aBcD3fGhIjKlMnOpQrStUvWxYz0000002",
