@@ -14,16 +14,16 @@ const phases = [
     id: 1,
     icon: Database,
     label: "Fase 1",
-    title: "Fondasi & Pengumpulan Data",
+    title: "Fondasi & Mockup Data",
     status: "done",
-    period: "Sep – Nov 2024",
+    period: "Nov - Des 2025",
     color: "green",
     items: [
       { text: "Desain skema database alumni & mahasiswa", done: true },
-      { text: "Integrasi Google Sheets sebagai sumber data", done: true },
+      { text: "Integrasi database sebagai sumber data", done: true },
       { text: "Setup backend API (Node.js + Express)", done: true },
-      { text: "Autentikasi Google Drive / Sheets OAuth", done: true },
-      { text: "Deployment backend ke Vercel", done: true },
+      { text: "Autentikasi data security", done: true },
+      { text: "Deployment backend", done: true },
     ],
   },
   {
@@ -32,14 +32,14 @@ const phases = [
     label: "Fase 2",
     title: "Dashboard Inti",
     status: "done",
-    period: "Nov 2024 – Jan 2025",
+    period: "Jan - Feb 2026",
     color: "green",
     items: [
-      { text: "Halaman Beranda — ringkasan statistik & KPI", done: true },
-      { text: "Tracer Study Kelulusan (tepat waktu per jenjang)", done: true },
+      { text: "Halaman Beranda - ringkasan statistik & KPI", done: true },
+      { text: "Tracer Study Kelulusan (tepat waktu)", done: true },
       { text: "Status Karier Alumni (bekerja, wirausaha, studi)", done: true },
-      { text: "Prestasi Mahasiswa (internasional, nasional, provinsi)", done: true },
-      { text: "Kegiatan & Program Pertukaran Mahasiswa", done: true },
+      { text: "Prestasi Mahasiswa (internasional, nasional, provinsi, universitas, fakultas)", done: true },
+      { text: "Kegiatan & Program Pertukaran Mahasiswa, dll", done: true },
     ],
   },
   {
@@ -48,7 +48,7 @@ const phases = [
     label: "Fase 3",
     title: "Analitik & Visualisasi",
     status: "active",
-    period: "Feb – Apr 2025",
+    period: "mar – Apr 2026",
     color: "azure",
     items: [
       { text: "Grafik tren kelulusan multi-tahun", done: true },
@@ -62,14 +62,14 @@ const phases = [
     id: 4,
     icon: FileOutput,
     label: "Fase 4",
-    title: "Ekspor & Aksesibilitas",
+    title: "Pengumpulan Data & Aksesibilitas",
     status: "planned",
-    period: "Mei – Jul 2025",
+    period: "Mei – Jul 2026",
     color: "amber",
     items: [
-      { text: "Ekspor laporan ke PDF / Excel", done: false },
+      { text: "Desain Perencanaan Data", done: true },
+      { text: "Form Tracer Study dan Prestasi disebar", done: true },
       { text: "Optimasi tampilan mobile & responsif", done: false },
-      { text: "Dukungan multi-bahasa (ID / EN)", done: false },
       { text: "Mode gelap (dark mode)", done: false },
     ],
   },
@@ -79,13 +79,13 @@ const phases = [
     label: "Fase 5",
     title: "Pengembangan Lanjutan",
     status: "planned",
-    period: "Agt 2025 →",
+    period: "Agt - des 2026 →",
     color: "inkfaint",
     items: [
-      { text: "Prediksi tren berbasis Machine Learning", done: false },
-      { text: "Portal input data mandiri untuk alumni", done: false },
-      { text: "Notifikasi & pengingat pengisian tracer study", done: false },
-      { text: "Integrasi dengan sistem akademik UNTAN", done: false },
+      { text: "Terintegrasi dengan Portal Akademik & Kemahasiswaan FMIPA Untan", done: false },
+      { text: "Mode Bahasa IND/ENG", done: false },
+      { text: "Upgrade Hosting & Deployment", done: false },
+      { text: "Penambahan Fitur Sesuai Kebutuhan", done: false },
     ],
   },
 ];
@@ -125,7 +125,7 @@ export default function Roadmap() {
       <div className="mb-8">
         <h1 className="font-display font-bold text-2xl text-ink mb-1">Roadmap Proyek</h1>
         <p className="text-sm text-inksoft">
-          Rencana pengembangan TIARA — Tracer Study &amp; Prestasi Mahasiswa FMIPA Universitas Tanjungpura.
+          Rencana pengembangan TIARA - Tracer Study &amp; Prestasi Mahasiswa FMIPA Universitas Tanjungpura.
         </p>
       </div>
 

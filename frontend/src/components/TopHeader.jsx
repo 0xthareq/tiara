@@ -48,7 +48,7 @@ export default function TopHeader({ onMenuOpen }) {
         {/* RIGHT — Navigation links */}
         <nav className="flex items-center gap-0.5">
           <a
-            href="https://ac-fmipa-portal.vercel.app/"
+            href="https://tiaramipa.vercel.app/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-inksoft hover:text-ink hover:bg-paper transition-colors"
