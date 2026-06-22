@@ -114,18 +114,40 @@ export function aggregateTracerStudy(rows, targets) {
 /* =========================================================
    2. Tracer Study — Karier Alumni (selaras IKU 1)
    ========================================================= */
-export function aggregateKarir(rows, targets) {
-  const enriched = rows.map((r) => {
+export function aggregateKarir(rows, targets, tahunPelaporan) {
+  // Filter hanya alumni yang lulus pada tahun T-1 (sesuai standar IKU 1).
+  // Jika tahunPelaporan tidak diberikan, gunakan semua data (fallback).
+  const tahunLulusTarget = tahunPelaporan
+    ? String(Number(tahunPelaporan) - 1)
+    : null;
+
+  const filtered = tahunLulusTarget
+    ? rows.filter((r) => String(r.TahunLulus) === tahunLulusTarget)
+    : rows;
+
+  const enriched = filtered.map((r) => {
     const statusUtama = normalizeStatus(r.StatusUtama);
     const masaTunggu = parseMasaTunggu(r.MasaTungguBulan);
     const rasioGaji = parseRasioGaji(r.RasioGajiUMR);
-    const layak =
-      (statusUtama === "Bekerja" || statusUtama === "Wirausaha") &&
-      masaTunggu !== null &&
-      masaTunggu <= targets.masaTungguBulan &&
-      rasioGaji !== null &&
-      rasioGaji >= targets.rasioGajiUmr;
-    const memenuhiIku1 = layak || statusUtama === "Lanjut Studi";
+
+    // Kriteria IKU 1 per Kemendikti Saintek:
+    // - Wirausaha    → otomatis layak (tanpa syarat gaji/masa tunggu)
+    // - Lanjut Studi → otomatis layak
+    // - Bekerja      → layak jika masa tunggu ≤ target DAN gaji ≥ target UMR
+    // - Belum Bekerja → tidak layak
+    let memenuhiIku1;
+    if (statusUtama === "Wirausaha" || statusUtama === "Lanjut Studi") {
+      memenuhiIku1 = true;
+    } else if (statusUtama === "Bekerja") {
+      memenuhiIku1 =
+        masaTunggu !== null &&
+        masaTunggu <= targets.masaTungguBulan &&
+        rasioGaji !== null &&
+        rasioGaji >= targets.rasioGajiUmr;
+    } else {
+      memenuhiIku1 = false;
+    }
+
     return {
       ...r,
       StatusUtama: statusUtama,
@@ -157,6 +179,8 @@ export function aggregateKarir(rows, targets) {
   return {
     summary: {
       total,
+      tahunLulus: tahunLulusTarget,
+      tahunPelaporan: tahunPelaporan ? String(tahunPelaporan) : null,
       memenuhiIku1: memenuhiCount,
       pctIku1: pct(memenuhiCount, total),
       target: targets.masaTungguBulan,

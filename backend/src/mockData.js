@@ -77,7 +77,7 @@ for (let i = 1; i <= 70; i++) {
     NIM: nim("K", i),
     Nama: fullName(),
     ProgramStudi: prodi,
-    TanggalLulus: `${pick(["2023", "2024", "2025"])}-${String(int(1, 12)).padStart(2, "0")}-15`,
+    TahunLulus: pick(["2022", "2023", "2024", "2025"]),
     StatusUtama: status,
     MasaTungguBulan: masaTunggu,
     RasioGajiUMR: rasioGaji,

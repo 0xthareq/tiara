@@ -1,4 +1,4 @@
-import { Users, GraduationCap, Briefcase, Trophy, Globe, Repeat } from "lucide-react";
+import { Users, GraduationCap, Trophy, Globe, Repeat } from "lucide-react";
 import {
   ResponsiveContainer,
   BarChart,
@@ -20,7 +20,13 @@ import ChartCard from "../components/ChartCard.jsx";
 import { LoadingState, ErrorState } from "../components/StatusStates.jsx";
 
 const STATUS_COLORS = { Bekerja: "#1E4FDE", Wirausaha: "#2F9E5B", "Lanjut Studi": "#E08A2C", "Belum Bekerja": "#9BA0AC" };
-const TINGKAT_COLORS = { Internasional: "#1E4FDE", Nasional: "#2F9E5B", Provinsi: "#E08A2C" };
+const TINGKAT_COLORS = {
+  Internasional: "#1E4FDE",
+  Nasional: "#2F9E5B",
+  Provinsi: "#E08A2C",
+  Universitas: "#9B59B6",
+  Fakultas: "#E74C3C",
+};
 
 export default function Overview() {
   const { data: payload, loading, error, reload } = useApiData(fetchOverview);
@@ -47,7 +53,6 @@ export default function Overview() {
           suffix="%"
           target={80}
         />
-        <StatCard icon={Briefcase} label="Memenuhi Kriteria IKU 1" value={d.pctIku1} suffix="%" />
         <StatCard icon={Trophy} label="Prestasi Mahasiswa" value={d.totalPrestasi} />
         <StatCard icon={Globe} label="Kegiatan Luar Kampus" value={d.totalKegiatanLuarKampus} />
         <StatCard icon={Repeat} label="Program Pertukaran Mahasiswa" value={d.totalPertukaranMahasiswa} />

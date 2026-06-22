@@ -38,8 +38,9 @@ router.get(
 router.get(
   "/karir",
   handle(async (req, res) => {
+    const tahunPelaporan = req.query.tahunPelaporan;
     const rows = await getSheetRows("karir");
-    respond(res, aggregateKarir(rows, config.targets));
+    respond(res, aggregateKarir(rows, config.targets, tahunPelaporan));
   })
 );
 
@@ -70,7 +71,7 @@ router.get(
     ]);
 
     const tracerStudy = aggregateTracerStudy(tracerRows, config.targets);
-    const karir = aggregateKarir(karirRows, config.targets);
+    const karir = aggregateKarir(karirRows, config.targets); // semua tahun untuk overview
     const prestasi = aggregatePrestasi(prestasiRows);
     const kegiatan = aggregateKegiatan(kegiatanRows);
 
@@ -80,7 +81,6 @@ router.get(
     respond(res, {
       totalAlumniTerdata: tracerRows.length,
       tepatWaktuRataRata: Math.round(tepatWaktuRataRata * 10) / 10,
-      pctIku1: karir.summary.pctIku1,
       totalPrestasi: prestasi.summary.total,
       totalKegiatanLuarKampus: kegiatan.summary.total,
       totalPertukaranMahasiswa: kegiatan.summary.totalPertukaran,

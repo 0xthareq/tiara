@@ -10,8 +10,9 @@ export async function fetchTracerStudy() {
   const { data } = await client.get("/tracer-study");
   return data;
 }
-export async function fetchKarir() {
-  const { data } = await client.get("/karir");
+export async function fetchKarir(tahunPelaporan) {
+  const params = tahunPelaporan ? { tahunPelaporan } : {};
+  const { data } = await client.get("/karir", { params });
   return data;
 }
 export async function fetchPrestasi() {
