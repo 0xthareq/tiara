@@ -13,7 +13,7 @@ const FORM_PRESTASI = "https://forms.gle/UQd9HscWiBsFjbdC7";
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-paper text-ink overflow-x-hidden">
+    <div className="min-h-screen bg-paper text-ink overflow-x-hidden relative">
       {/* Ikan-ikan berenang — fixed fullscreen, terlihat di seluruh landing page */}
       <BoidCanvas />
 
