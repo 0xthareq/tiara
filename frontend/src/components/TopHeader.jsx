@@ -49,8 +49,6 @@ export default function TopHeader({ onMenuOpen }) {
         <nav className="flex items-center gap-0.5">
           <a
             href="https://tiaramipa.vercel.app/"
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-inksoft hover:text-ink hover:bg-paper transition-colors"
           >
             <LayoutGrid size={14} strokeWidth={1.8} />

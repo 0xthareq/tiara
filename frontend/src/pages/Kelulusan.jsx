@@ -57,7 +57,7 @@ export default function Kelulusan() {
   return (
     <div>
       <PageHeader
-        title="Tracer Study &mdash; Kelulusan Tepat Waktu"
+        title="Tracer Study Kelulusan Tepat Waktu"
         subtitle="Mengukur proporsi lulusan sarjana dan magister yang menyelesaikan studi sesuai masa studi yang ditetapkan."
         demoMode={payload.meta.demoMode}
       />

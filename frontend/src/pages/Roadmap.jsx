@@ -23,7 +23,7 @@ const phases = [
       { text: "Integrasi database sebagai sumber data", done: true },
       { text: "Setup backend API (Node.js + Express)", done: true },
       { text: "Autentikasi data security", done: true },
-      { text: "Deployment backend", done: true },
+      { text: "Deployment", done: true },
     ],
   },
   {
@@ -35,7 +35,7 @@ const phases = [
     period: "Jan - Feb 2026",
     color: "green",
     items: [
-      { text: "Halaman Beranda - ringkasan statistik & KPI", done: true },
+      { text: "Halaman Beranda ringkasan statistik", done: true },
       { text: "Tracer Study Kelulusan (tepat waktu)", done: true },
       { text: "Status Karier Alumni (bekerja, wirausaha, studi)", done: true },
       { text: "Prestasi Mahasiswa (internasional, nasional, provinsi, universitas, fakultas)", done: true },
@@ -48,13 +48,13 @@ const phases = [
     label: "Fase 3",
     title: "Analitik & Visualisasi",
     status: "active",
-    period: "mar – Apr 2026",
+    period: "mar - Apr 2026",
     color: "azure",
     items: [
       { text: "Grafik tren kelulusan multi-tahun", done: true },
       { text: "Donut chart distribusi karier alumni", done: true },
       { text: "Bar chart perbandingan target vs capain IKU", done: false },
-      { text: "Filter & drill-down berdasarkan tahun angkatan", done: false },
+      { text: "Filter & drill-down berdasarkan tahun angkatan", done: true },
       { text: "Mode Demo dengan data contoh realistis", done: true },
     ],
   },
@@ -64,7 +64,7 @@ const phases = [
     label: "Fase 4",
     title: "Pengumpulan Data & Aksesibilitas",
     status: "planned",
-    period: "Mei – Jul 2026",
+    period: "Mei - Jul 2026",
     color: "amber",
     items: [
       { text: "Desain Perencanaan Data", done: true },
