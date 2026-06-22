@@ -70,7 +70,7 @@ export default function TopHeader({ onMenuOpen }) {
           </NavLink>
 
           <a
-            href="https://howlyvine.eth.limo/"
+            href="https://www.instagram.com/0xthareq/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm font-medium text-inksoft hover:text-ink hover:bg-paper transition-colors"

@@ -6,6 +6,7 @@ import {
   Trophy,
   CircleCheck,
 } from "lucide-react";
+import BoidCanvas from "../components/BoidCanvas.jsx";
 
 const FORM_TRACER_STUDY = "https://forms.gle/PBuwoY52XqUVVyM56";
 const FORM_PRESTASI = "https://forms.gle/UQd9HscWiBsFjbdC7";
@@ -13,9 +14,12 @@ const FORM_PRESTASI = "https://forms.gle/UQd9HscWiBsFjbdC7";
 export default function Landing() {
   return (
     <div className="min-h-screen bg-paper text-ink overflow-x-hidden">
+      {/* Ikan-ikan berenang — fixed fullscreen, terlihat di seluruh landing page */}
+      <BoidCanvas />
+
       {/* ============ HERO ============ */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-6 py-20 text-center">
-        {/* Halus: pola titik ala kertas grafik - nuansa MIPA tanpa berisik */}
+        {/* Halus: pola titik ala kertas grafik — nuansa MIPA tanpa berisik */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.4]"
           style={{
@@ -39,7 +43,7 @@ export default function Landing() {
           Sinkronisasi otomatis data yang termutakhirkan
         </div>
 
-        {/* Wordmark - garis "tracer" tipis sebagai signature, melambangkan jejak yang ditelusuri */}
+        {/* Wordmark — garis "tracer" tipis sebagai signature, melambangkan jejak yang ditelusuri */}
         <div className="relative mb-2">
           <svg
             className="absolute left-1/2 -translate-x-1/2 -bottom-3 w-[120%] max-w-[640px] h-10 text-azure/25"
@@ -57,13 +61,14 @@ export default function Landing() {
             />
           </svg>
           <h1 className="relative font-display font-bold tracking-tight text-[15vw] sm:text-7xl md:text-8xl leading-none bg-gradient-to-br from-ink via-azure to-azuredeep bg-clip-text text-transparent">
-            T I Λ R Λ
+            T i Λ R Λ
           </h1>
         </div>
 
         {/* Tagline */}
         <p className="relative font-serif italic text-xl sm:text-2xl text-inksoft mt-5 mb-4">
-          <b>T</b>racer <b>I</b>nformation &middot; and &middot; <b>A</b>chievement <b>R</b>ecord <b>A</b>pplication
+          {/* <b>T</b>racer <b>I</b>nformation &middot; and &middot; <b>A</b>chievement <b>R</b>ecord <b>A</b>pplication */}
+          <b>T</b>racer Study &middot; <b>I</b>nformasi <b>A</b>lumni &middot; P<b>r</b>estasi Mahasisw<b>a</b>
         </p>
 
         {/* Subtitle */}
@@ -92,7 +97,7 @@ export default function Landing() {
       </section>
 
       {/* ============ PILIH FORM ============ */}
-      <section id="isi-form" className="px-6 pb-24 pt-8 scroll-mt-0">
+      <section id="isi-form" className="px-6 pb-24 -mt-8 sm:-mt-12">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="font-display font-bold text-2xl sm:text-3xl text-ink mb-2">
@@ -172,7 +177,7 @@ export default function Landing() {
       {/* ============ FOOTER ============ */}
       <footer className="px-6 py-8 border-t border-line text-center">
         <p className="text-[12px] text-inkfaint leading-relaxed">
-          Fakultas Matematika dan Ilmu Pengetahuan Alam
+          Akademik & Kemahasiswaan FMIPA Universitas Tanjungpura &middot; 2026
           <br />
           Universitas Tanjungpura
         </p>
