@@ -35,7 +35,7 @@ export default function Karier() {
   if (error) return <ErrorState message={error.message} onRetry={reload} />;
 
   const { summary, statusCounts, masaTungguBuckets, tableRows } = payload.data;
-  const tahunLulus = summary.tahunLulus ?? String(Number(tahunPelaporan) - 1);
+  const tahunLulus = String(Number(tahunPelaporan) - 1);
 
   const columns = [
     { key: "NIM", label: "NIM" },
