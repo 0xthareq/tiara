@@ -74,7 +74,7 @@ export default function Sidebar({ open, onClose }) {
         {/* Footer */}
         <div className="px-5 py-4 border-t border-line">
           <p className="text-[11px] text-inkfaint leading-relaxed">
-            Fakultas Matematika dan Ilmu Pengetahuan Alam
+            Fakultas MIPA
             <br />
             Universitas Tanjungpura
           </p>
