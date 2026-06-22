@@ -92,7 +92,7 @@ export default function Landing() {
       </section>
 
       {/* ============ PILIH FORM ============ */}
-      <section id="isi-form" className="px-6 pb-24 scroll-mt-90">
+      <section id="isi-form" className="px-6 pb-24 pt-8 scroll-mt-0">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="font-display font-bold text-2xl sm:text-3xl text-ink mb-2">
