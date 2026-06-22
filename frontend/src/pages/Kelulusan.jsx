@@ -67,7 +67,7 @@ export default function Kelulusan() {
           <StatCard
             key={s.jenjang}
             icon={GraduationCap}
-            label={`Lulus Tepat Waktu — ${s.jenjang}`}
+            label={`Lulus Tepat Waktu - ${s.jenjang}`}
             value={s.pct}
             suffix="%"
             target={s.target}

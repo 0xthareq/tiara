@@ -6,7 +6,7 @@ export default function TopHeader({ onMenuOpen }) {
     <header className="bg-surface border-b border-line sticky top-0 z-50 flex-shrink-0">
       <div className="px-4 sm:px-6 flex items-center justify-between h-16">
 
-        {/* LEFT — Mobile hamburger + Logos + Institution name */}
+        {/* LEFT Mobile hamburger + Logos + Institution name */}
         <div className="flex items-center gap-3">
           {/* Hamburger (mobile only) */}
           <button
@@ -17,7 +17,7 @@ export default function TopHeader({ onMenuOpen }) {
             <Menu size={22} />
           </button>
 
-          {/* Logos — klik balik ke landing page */}
+          {/* Logos klik balik ke landing page */}
           <Link to="/" className="flex items-center gap-1.5 shrink-0">
             <img
               src="/untan-logo.png"
@@ -45,7 +45,7 @@ export default function TopHeader({ onMenuOpen }) {
           </div>
         </div>
 
-        {/* RIGHT — Navigation links */}
+        {/* RIGHT Navigation links */}
         <nav className="flex items-center gap-0.5">
           <a
             href="https://tiaramipa.vercel.app/"

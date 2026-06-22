@@ -233,7 +233,7 @@ export default function Roadmap() {
       </div>
 
       <p className="text-center text-xs text-inkfaint mt-10 mb-2">
-        TIARA · FMIPA Universitas Tanjungpura · Roadmap diperbarui 2025
+        TIARA · Akademik & Kemahasiswaan FMIPA Untan · Roadmap diperbarui 2026
       </p>
     </div>
   );

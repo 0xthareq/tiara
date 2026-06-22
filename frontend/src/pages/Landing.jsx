@@ -15,7 +15,7 @@ export default function Landing() {
     <div className="min-h-screen bg-paper text-ink overflow-x-hidden">
       {/* ============ HERO ============ */}
       <section className="relative flex flex-col items-center justify-center min-h-screen px-6 py-20 text-center">
-        {/* Halus: pola titik ala kertas grafik — nuansa MIPA tanpa berisik */}
+        {/* Halus: pola titik ala kertas grafik - nuansa MIPA tanpa berisik */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.4]"
           style={{
@@ -39,7 +39,7 @@ export default function Landing() {
           Sinkronisasi otomatis data yang termutakhirkan
         </div>
 
-        {/* Wordmark — garis "tracer" tipis sebagai signature, melambangkan jejak yang ditelusuri */}
+        {/* Wordmark - garis "tracer" tipis sebagai signature, melambangkan jejak yang ditelusuri */}
         <div className="relative mb-2">
           <svg
             className="absolute left-1/2 -translate-x-1/2 -bottom-3 w-[120%] max-w-[640px] h-10 text-azure/25"

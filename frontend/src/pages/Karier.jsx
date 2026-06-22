@@ -66,7 +66,7 @@ export default function Karier() {
     <div>
       <PageHeader
         title="Karier Alumni"
-        subtitle={`Skor IKU 1 alumni yang lulus tahun ${tahunLulus} — bekerja layak, wirausaha, atau melanjutkan studi sesuai standar Kemendikti Saintek.`}
+        subtitle={`Skor IKU 1 alumni yang lulus tahun ${tahunLulus} - bekerja layak, wirausaha, atau melanjutkan studi sesuai standar Kemendikti Saintek.`}
         demoMode={payload.meta.demoMode}
       />
 
