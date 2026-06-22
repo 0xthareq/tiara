@@ -14,7 +14,7 @@ const phases = [
     id: 1,
     icon: Database,
     label: "Fase 1",
-    title: "Fondasi & Mockup Data",
+    title: "Fondasi & Perancangan Awal",
     status: "done",
     period: "Nov - Des 2025",
     color: "green",
