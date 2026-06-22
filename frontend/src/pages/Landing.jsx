@@ -13,13 +13,13 @@ const FORM_PRESTASI = "https://forms.gle/UQd9HscWiBsFjbdC7";
 
 export default function Landing() {
   return (
-    <div className="min-h-screen bg-paper text-ink overflow-x-hidden relative">
+    <div className="min-h-screen bg-paper text-ink overflow-x-hidden">
       {/* Ikan-ikan berenang — fixed fullscreen, terlihat di seluruh landing page */}
       <BoidCanvas />
 
       {/* ============ HERO ============ */}
-      <section className="relative flex flex-col items-center justify-center min-h-screen px-6 py-20 text-center">
-        {/* Halus: pola titik ala kertas grafik — nuansa MIPA tanpa berisik */}
+      <section className="isolate relative flex flex-col items-center justify-center min-h-screen px-6 py-20 text-center">
+        {/* Halus: pola titik ala kertas grafik */}
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.4]"
           style={{
@@ -43,7 +43,7 @@ export default function Landing() {
           Sinkronisasi otomatis data yang termutakhirkan
         </div>
 
-        {/* Wordmark — garis "tracer" tipis sebagai signature, melambangkan jejak yang ditelusuri */}
+        {/* Wordmark */}
         <div className="relative mb-2">
           <svg
             className="absolute left-1/2 -translate-x-1/2 -bottom-3 w-[120%] max-w-[640px] h-10 text-azure/25"
@@ -67,7 +67,6 @@ export default function Landing() {
 
         {/* Tagline */}
         <p className="relative font-serif italic text-xl sm:text-2xl text-inksoft mt-5 mb-4">
-          {/* <b>T</b>racer <b>I</b>nformation &middot; and &middot; <b>A</b>chievement <b>R</b>ecord <b>A</b>pplication */}
           <b>T</b>racer Study &middot; <b>I</b>nformasi <b>A</b>lumni &middot; P<b>r</b>estasi Mahasisw<b>a</b>
         </p>
 
@@ -97,7 +96,7 @@ export default function Landing() {
       </section>
 
       {/* ============ PILIH FORM ============ */}
-      <section id="isi-form" className="px-6 pb-24 -mt-8 sm:-mt-12">
+      <section id="isi-form" className="isolate px-6 pb-24 -mt-8 sm:-mt-12">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="font-display font-bold text-2xl sm:text-3xl text-ink mb-2">
@@ -114,9 +113,7 @@ export default function Landing() {
               <div className="w-11 h-11 rounded-xl bg-azuresoft flex items-center justify-center mb-4">
                 <GraduationCap size={22} className="text-azure" strokeWidth={1.8} />
               </div>
-              <h3 className="font-display font-bold text-ink text-lg mb-1.5">
-                Alumni
-              </h3>
+              <h3 className="font-display font-bold text-ink text-lg mb-1.5">Alumni</h3>
               <p className="text-sm text-inksoft leading-relaxed mb-5 flex-1">
                 Sudah lulus dari FMIPA? Ceritakan kelulusan dan perjalanan
                 kariermu lewat Tracer Study Alumni.
@@ -145,9 +142,7 @@ export default function Landing() {
               <div className="w-11 h-11 rounded-xl bg-ambersoft flex items-center justify-center mb-4">
                 <Trophy size={22} className="text-amber" strokeWidth={1.8} />
               </div>
-              <h3 className="font-display font-bold text-ink text-lg mb-1.5">
-                Mahasiswa Aktif
-              </h3>
+              <h3 className="font-display font-bold text-ink text-lg mb-1.5">Mahasiswa Aktif</h3>
               <p className="text-sm text-inksoft leading-relaxed mb-5 flex-1">
                 Punya prestasi lomba atau ikut kegiatan di luar kampus
                 (MBKM)? Laporkan lewat form ini.
@@ -175,9 +170,9 @@ export default function Landing() {
       </section>
 
       {/* ============ FOOTER ============ */}
-      <footer className="px-6 py-8 border-t border-line text-center">
+      <footer className="isolate px-6 py-8 border-t border-line text-center">
         <p className="text-[12px] text-inkfaint leading-relaxed">
-          Akademik & Kemahasiswaan FMIPA &middot; 2026
+          Akademik &amp; Kemahasiswaan FMIPA &middot; 2026
           <br />
           Universitas Tanjungpura
         </p>
