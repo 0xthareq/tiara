@@ -75,7 +75,7 @@ export default function Landing() {
         {/* Subtitle */}
         <p className="relative max-w-md text-[15px] text-inkfaint leading-relaxed mb-10">
           Platform monitoring terpadu untuk lulusan, keterserapan kerja, dan
-          pencapaian mahasiswa FMIPA Universitas Tanjungpura.
+          pencapaian mahasiswa FakultasMIPA Universitas Tanjungpura.
         </p>
 
         {/* CTAs */}
@@ -202,7 +202,7 @@ export default function Landing() {
       {/* ============ FOOTER ============ */}
       <footer className="isolate px-6 py-8 border-t border-line text-center">
         <p className="text-[12px] text-inkfaint leading-relaxed">
-          Akademik &amp; Kemahasiswaan FMIPA @2026
+          Akademik &amp; Kemahasiswaan Fakultas MIPA @2026
           <br />
           Universitas Tanjungpura
         </p>
