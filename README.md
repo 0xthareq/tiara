@@ -1,3 +1,3 @@
-# TIARA - Tracer Information · and · Achievement Record Application
-@copyright Interactive Animation by sakana.ai 
+# TIARA - Tracer Study · Informasi Alumni · Prestasi Mahasiswa
+@copyright Interactive Animation by sakana fugu
 
