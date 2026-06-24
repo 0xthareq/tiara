@@ -97,7 +97,7 @@ export default function Mahasiswa() {
         </div>
       </div>
 
-      {/* StatCards — 5 kolom */}
+      {/* StatCards - 5 kolom */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-5">
         <StatCard icon={Users} label={`Total ${selectedTahun ?? ""}`} value={activeYear?.total ?? 0} />
         <StatCard label="Periode 1" value={totalP1} suffix=" orang" />
@@ -108,7 +108,7 @@ export default function Mahasiswa() {
 
       {/* Charts */}
       <div className={`grid gap-5 mb-5 ${trendData.length > 1 ? "lg:grid-cols-2" : ""}`}>
-        <ChartCard title={`Lulusan per Prodi — ${selectedTahun ?? ""}`} subtitle="Stacked per periode wisuda">
+        <ChartCard title={`Lulusan per Prodi - ${selectedTahun ?? ""}`} subtitle="Stacked per periode wisuda">
           <ResponsiveContainer width="100%" height={300}>
             <BarChart data={chartData} layout="vertical" margin={{ top: 4, right: 16, left: 4, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#E4E1D6" />
@@ -140,7 +140,7 @@ export default function Mahasiswa() {
       </div>
 
       {/* Tabel detail */}
-      <ChartCard title={`Rincian per Program Studi — ${selectedTahun ?? ""}`} subtitle="Breakdown lulusan per periode wisuda">
+      <ChartCard title={`Rincian per Program Studi - ${selectedTahun ?? ""}`} subtitle="Breakdown lulusan per periode wisuda">
         <DataTable columns={columns} rows={rows} searchKeys={["prodi"]} pageSize={15} />
       </ChartCard>
     </div>
