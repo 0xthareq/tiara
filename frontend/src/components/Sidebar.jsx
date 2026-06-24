@@ -6,15 +6,43 @@ import {
   Trophy,
   Globe,
   X,
+  Landmark,
+  Users,
 } from "lucide-react";
 
-const NAV_ITEMS = [
+const NAV_MONITORING = [
   { to: "/dashboard",           label: "Beranda",               icon: LayoutDashboard },
   { to: "/dashboard/kelulusan", label: "Tracer Study Kelulusan", icon: GraduationCap  },
   { to: "/dashboard/karier",    label: "Karier Alumni",          icon: Briefcase       },
   { to: "/dashboard/prestasi",  label: "Prestasi Mahasiswa",     icon: Trophy          },
   { to: "/dashboard/kegiatan",  label: "Kegiatan & Pertukaran",  icon: Globe           },
 ];
+
+const NAV_DATA = [
+  { to: "/dashboard/beasiswa",  label: "Data Beasiswa",          icon: Landmark        },
+  { to: "/dashboard/mahasiswa", label: "Data Mahasiswa",         icon: Users           },
+];
+
+function NavItem({ item, onClose }) {
+  return (
+    <NavLink
+      key={item.to}
+      to={item.to}
+      end={item.to === "/dashboard"}
+      onClick={onClose}
+      className={({ isActive }) =>
+        `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+          isActive
+            ? "bg-azuresoft text-azuredeep"
+            : "text-inksoft hover:bg-paper hover:text-ink"
+        }`
+      }
+    >
+      <item.icon size={17} strokeWidth={1.8} />
+      {item.label}
+    </NavLink>
+  );
+}
 
 export default function Sidebar({ open, onClose }) {
   return (
@@ -50,24 +78,25 @@ export default function Sidebar({ open, onClose }) {
         </div>
 
         {/* Nav items */}
-        <nav className="flex-1 px-3 py-4 space-y-0.5 overflow-y-auto">
-          {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === "/dashboard"}
-              onClick={onClose}
-              className={({ isActive }) =>
-                `flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-colors ${
-                  isActive
-                    ? "bg-azuresoft text-azuredeep"
-                    : "text-inksoft hover:bg-paper hover:text-ink"
-                }`
-              }
-            >
-              <item.icon size={17} strokeWidth={1.8} />
-              {item.label}
-            </NavLink>
+        <nav className="flex-1 px-3 py-4 overflow-y-auto space-y-0.5">
+          {/* Monitoring section */}
+          {NAV_MONITORING.map((item) => (
+            <NavItem key={item.to} item={item} onClose={onClose} />
+          ))}
+
+          {/* Divider + Data section */}
+          <div className="pt-3 pb-1">
+            <div className="flex items-center gap-2 px-3">
+              <div className="h-px flex-1 bg-line" />
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-inkfaint">
+                Data
+              </span>
+              <div className="h-px flex-1 bg-line" />
+            </div>
+          </div>
+
+          {NAV_DATA.map((item) => (
+            <NavItem key={item.to} item={item} onClose={onClose} />
           ))}
         </nav>
 

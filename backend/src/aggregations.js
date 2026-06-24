@@ -260,3 +260,182 @@ export function aggregateKegiatan(rows) {
     tableRows: rows.map((r) => ({ ...r, BuktiLink: toViewableDriveLink(r.BuktiLink) })),
   };
 }
+
+/* =========================================================
+   5. Data Beasiswa Mahasiswa Aktif
+   Kolom dari Google Form (sesuai header di Sheet):
+   Timestamp | Nama Lengkap | NIM | Program Studi |
+   Semester Saat Ini | Indeks Prestasi Kumulatif (IPK) Terakhir |
+   Nama Beasiswa yang didapat | Tahun mendapatkan beasiswa |
+   Masa Berlaku Beasiswa | Bukti penerimaan beasiswa |
+   Aapakah anda menerima lebih dari 1 beasiswa ? |
+   Nama beasiswa lainnya
+   ========================================================= */
+export function aggregateBeasiswa(rows) {
+  const COL = {
+    nama:         "Nama Lengkap",
+    nim:          "NIM",
+    prodi:        "Program Studi",
+    semester:     "Semester Saat Ini",
+    ipk:          "Indeks Prestasi Kumulatif (IPK) Terakhir",
+    namaBeasiswa: "Nama Beasiswa yang didapat",
+    tahun:        "Tahun mendapatkan beasiswa",
+    masaBerlaku:  "Masa Berlaku Beasiswa",
+    bukti:        "Bukti penerimaan beasiswa",
+    multiple:     "Aapakah anda menerima lebih dari 1 beasiswa ?",
+    namaLainnya:  "Nama beasiswa lainnya",
+  };
+
+  const normIpk = (v) => {
+    const n = toNum(v);
+    return n !== null && n >= 0 && n <= 4 ? n : null;
+  };
+
+  const enriched = rows.map((r) => ({
+    nama:         r[COL.nama]         || "",
+    nim:          r[COL.nim]          || "",
+    prodi:        r[COL.prodi]        || "",
+    semester:     r[COL.semester]     || "",
+    ipk:          normIpk(r[COL.ipk]),
+    namaBeasiswa: r[COL.namaBeasiswa] || "",
+    tahun:        String(r[COL.tahun] || "").trim(),
+    masaBerlaku:  r[COL.masaBerlaku]  || "",
+    bukti:        toViewableDriveLink(r[COL.bukti]),
+    punyaMultiple: String(r[COL.multiple] || "").trim().toLowerCase() === "ya",
+    namaLainnya:  r[COL.namaLainnya]  || "",
+  }));
+
+  const total = enriched.length;
+  const multipleBeasiswa = enriched.filter((r) => r.punyaMultiple).length;
+
+  // Rata-rata IPK
+  const ipkValues = enriched.map((r) => r.ipk).filter((v) => v !== null);
+  const rataRataIpk =
+    ipkValues.length > 0
+      ? Math.round((ipkValues.reduce((s, v) => s + v, 0) / ipkValues.length) * 100) / 100
+      : 0;
+
+  // Sebaran per prodi
+  const prodiMap = new Map();
+  enriched.forEach((r) => {
+    if (r.prodi) prodiMap.set(r.prodi, (prodiMap.get(r.prodi) || 0) + 1);
+  });
+  const byProdi = Array.from(prodiMap.entries())
+    .map(([prodi, count]) => ({ prodi, count }))
+    .sort((a, b) => b.count - a.count);
+
+  // Ranking jenis beasiswa (termasuk beasiswa ke-2 jika ada)
+  const beasiswaMap = new Map();
+  enriched.forEach((r) => {
+    if (r.namaBeasiswa) {
+      beasiswaMap.set(r.namaBeasiswa, (beasiswaMap.get(r.namaBeasiswa) || 0) + 1);
+    }
+    if (r.punyaMultiple && r.namaLainnya) {
+      r.namaLainnya
+        .split(",")
+        .map((s) => s.trim())
+        .filter(Boolean)
+        .forEach((name) => {
+          beasiswaMap.set(name, (beasiswaMap.get(name) || 0) + 1);
+        });
+    }
+  });
+  const beasiswaUnik = beasiswaMap.size;
+  const byBeasiswa = Array.from(beasiswaMap.entries())
+    .map(([nama, count]) => ({ nama, count }))
+    .sort((a, b) => b.count - a.count);
+
+  // Sebaran per semester (urut nomor semester)
+  const semesterMap = new Map();
+  enriched.forEach((r) => {
+    if (r.semester) semesterMap.set(r.semester, (semesterMap.get(r.semester) || 0) + 1);
+  });
+  const bySemester = Array.from(semesterMap.entries())
+    .map(([semester, count]) => ({ semester, count }))
+    .sort((a, b) => {
+      const na = parseInt(a.semester.replace(/\D/g, ""), 10) || 0;
+      const nb = parseInt(b.semester.replace(/\D/g, ""), 10) || 0;
+      return na - nb;
+    });
+
+  // Tren per tahun
+  const tahunMap = new Map();
+  enriched.forEach((r) => {
+    if (r.tahun) tahunMap.set(r.tahun, (tahunMap.get(r.tahun) || 0) + 1);
+  });
+  const byTahun = Array.from(tahunMap.entries())
+    .map(([tahun, count]) => ({ tahun, count }))
+    .sort((a, b) => a.tahun.localeCompare(b.tahun));
+
+  return {
+    summary: { total, rataRataIpk, beasiswaUnik, multipleBeasiswa },
+    byProdi,
+    byBeasiswa,
+    bySemester,
+    byTahun,
+    tableRows: enriched,
+  };
+}
+
+/* =========================================================
+   6. Data Lulusan per Tahun Ajar & Periode
+   Input: tabData = [{ tahunAjar: "2025/2026", rows: [{
+     PRODI, "PERIODE 1", "PERIODE 2", "PERIODE 3"
+   }] }]
+   ========================================================= */
+export function aggregateLulusan(tabData) {
+  const toN = (v) => {
+    const n = parseInt(String(v ?? "0").replace(/[^0-9]/g, ""), 10);
+    return isNaN(n) ? 0 : n;
+  };
+
+  // Enrich tiap tab: hitung total per baris & total per tahun
+  const enriched = tabData.map(({ tahunAjar, rows }) => {
+    const prodiRows = rows.map((r) => {
+      const p1 = toN(r["PERIODE 1"]);
+      const p2 = toN(r["PERIODE 2"]);
+      const p3 = toN(r["PERIODE 3"]);
+      return {
+        prodi:   String(r.PRODI || "").trim(),
+        periode1: p1,
+        periode2: p2,
+        periode3: p3,
+        total:   p1 + p2 + p3,
+      };
+    });
+    const totalTahun = prodiRows.reduce((s, r) => s + r.total, 0);
+    return { tahunAjar, rows: prodiRows, total: totalTahun };
+  });
+
+  // Summary per tahun (untuk grafik tren)
+  const byTahun = enriched.map(({ tahunAjar, total }) => ({ tahunAjar, total }));
+  const totalKeseluruhan = enriched.reduce((s, t) => s + t.total, 0);
+
+  // Data tahun terbaru (enriched sudah descending → index 0)
+  const latest = enriched[0] ?? { tahunAjar: "-", rows: [], total: 0 };
+
+  // Perbandingan lintas tahun per prodi
+  const prodiSet = new Set();
+  enriched.forEach(({ rows }) => rows.forEach((r) => prodiSet.add(r.prodi)));
+
+  const byProdi = Array.from(prodiSet)
+    .map((prodi) => {
+      const perTahun = enriched.map(({ tahunAjar, rows }) => {
+        const row = rows.find((r) => r.prodi === prodi);
+        return { tahunAjar, total: row ? row.total : 0 };
+      });
+      return {
+        prodi,
+        perTahun,
+        totalKeseluruhan: perTahun.reduce((s, r) => s + r.total, 0),
+      };
+    })
+    .sort((a, b) => b.totalKeseluruhan - a.totalKeseluruhan);
+
+  return {
+    summary:  { totalKeseluruhan, byTahun },
+    latest,           // detail tahun terbaru (per prodi + per periode)
+    allYears: enriched,
+    byProdi,          // perbandingan lintas tahun per prodi
+  };
+}

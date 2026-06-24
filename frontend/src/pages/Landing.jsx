@@ -16,7 +16,7 @@ const FORM_BEASISWA     = "https://forms.gle/h81JZnKeeJgm9StZA";
 export default function Landing() {
   return (
     <div className="min-h-screen bg-paper text-ink overflow-x-hidden">
-      {/* Ikan-ikan berenang - fixed fullscreen, terlihat di seluruh landing page */}
+      {/* Ikan-ikan berenang — fixed fullscreen, terlihat di seluruh landing page */}
       <BoidCanvas />
 
       {/* ============ HERO ============ */}
@@ -75,7 +75,7 @@ export default function Landing() {
         {/* Subtitle */}
         <p className="relative max-w-md text-[15px] text-inkfaint leading-relaxed mb-10">
           Platform monitoring terpadu untuk lulusan, keterserapan kerja, dan
-          pencapaian mahasiswa FakultasMIPA Universitas Tanjungpura.
+          pencapaian mahasiswa FMIPA Universitas Tanjungpura.
         </p>
 
         {/* CTAs */}
@@ -98,7 +98,7 @@ export default function Landing() {
       </section>
 
       {/* ============ PILIH FORM ============ */}
-      <section id="isi-form" className="isolate px-6 pb-24 -mt-0 sm:-mt-12">
+      <section id="isi-form" className="isolate px-6 pb-24 -mt-8 sm:-mt-12">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
             <h2 className="font-display font-bold text-2xl sm:text-3xl text-ink mb-2">
@@ -175,7 +175,8 @@ export default function Landing() {
               </div>
               <h3 className="font-display font-bold text-ink text-lg mb-1.5">Penerima Beasiswa</h3>
               <p className="text-sm text-inksoft leading-relaxed mb-5 flex-1">
-                Mahasiswa aktif yang menerima beasiswa? Daftarkan data beasiswamu di sini.
+                Mahasiswa aktif yang menerima beasiswa? Daftarkan atau perbarui
+                data beasiswamu di sini.
               </p>
               <ul className="space-y-1.5 mb-6">
                 {["Data beasiswa yang diterima", "Informasi masa berlaku", "Boleh lebih dari 1 beasiswa"].map((item) => (
@@ -202,7 +203,7 @@ export default function Landing() {
       {/* ============ FOOTER ============ */}
       <footer className="isolate px-6 py-8 border-t border-line text-center">
         <p className="text-[12px] text-inkfaint leading-relaxed">
-          Akademik &amp; Kemahasiswaan Fakultas MIPA @2026
+          Akademik &amp; Kemahasiswaan FMIPA &middot; 2026
           <br />
           Universitas Tanjungpura
         </p>

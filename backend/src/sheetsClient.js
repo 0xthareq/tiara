@@ -94,3 +94,60 @@ export async function getSheetRows(sheetKey) {
 export function clearSheetCache() {
   cache.clear();
 }
+
+/**
+ * Membaca spreadsheet Data Lulusan yang punya format khusus:
+ * - Setiap tab = satu tahun ajar (contoh: "2025/2026")
+ * - Baris 1 = judul merged — di-skip dengan mulai baca dari A2
+ * - Baris 2 = header: PRODI | PERIODE 1 | PERIODE 2 | PERIODE 3
+ * - Baris berikutnya = data prodi
+ * - Baris TOTAL di-filter di sini agar tidak masuk agregasi
+ *
+ * Kembalikan: [{ tahunAjar: "2025/2026", rows: [{PRODI, "PERIODE 1", ...}] }]
+ * Urutan: tahun terbaru dulu (descending).
+ */
+export async function getLulusanData() {
+  // Mode demo atau SPREADSHEET_ID_LULUSAN belum diisi → pakai mock
+  if (isDemoMode() || !config.spreadsheetIds.lulusan) {
+    const { MOCK_LULUSAN_TABS } = await import("./mockData.js");
+    return MOCK_LULUSAN_TABS;
+  }
+
+  const spreadsheetId = config.spreadsheetIds.lulusan;
+  const cacheKey = `lulusan::${spreadsheetId}`;
+  const cached = cache.get(cacheKey);
+  if (cached && Date.now() - cached.timestamp < CACHE_TTL_MS) {
+    return cached.data;
+  }
+
+  const authClient = await getAuthClient();
+  const sheets = google.sheets({ version: "v4", auth: authClient });
+
+  // 1. Ambil semua nama tab dari metadata spreadsheet
+  const meta = await sheets.spreadsheets.get({ spreadsheetId });
+  const sheetTitles = meta.data.sheets.map((s) => s.properties.title);
+
+  // 2. Baca tiap tab, mulai baris A2 (baris 1 = judul → di-skip)
+  const results = await Promise.all(
+    sheetTitles.map(async (tahunAjar) => {
+      const response = await sheets.spreadsheets.values.get({
+        spreadsheetId,
+        // Kutip nama tab karena mengandung "/" — wajib pakai single quote
+        range: `'${tahunAjar}'!A2:D100`,
+      });
+      const values = response.data.values || [];
+      const rows = rowsToObjects(values).filter((r) => {
+        const prodi = String(r.PRODI || "").trim().toUpperCase();
+        // Buang baris kosong dan baris TOTAL
+        return prodi !== "" && prodi !== "TOTAL";
+      });
+      return { tahunAjar, rows };
+    })
+  );
+
+  // Urutkan tahun terbaru dulu (string "2025/2026" > "2024/2025")
+  results.sort((a, b) => b.tahunAjar.localeCompare(a.tahunAjar));
+
+  cache.set(cacheKey, { data: results, timestamp: Date.now() });
+  return results;
+}
