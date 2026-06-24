@@ -16,7 +16,7 @@ const FORM_BEASISWA     = "https://forms.gle/h81JZnKeeJgm9StZA";
 export default function Landing() {
   return (
     <div className="min-h-screen bg-paper text-ink overflow-x-hidden">
-      {/* Ikan-ikan berenang — fixed fullscreen, terlihat di seluruh landing page */}
+      {/* Ikan-ikan berenang fixed fullscreen, terlihat di seluruh landing page */}
       <BoidCanvas />
 
       {/* ============ HERO ============ */}
