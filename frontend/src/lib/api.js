@@ -23,3 +23,11 @@ export async function fetchKegiatan() {
   const { data } = await client.get("/kegiatan");
   return data;
 }
+export async function fetchBeasiswa() {
+  const { data } = await client.get("/beasiswa");
+  return data;
+}
+export async function fetchMahasiswa() {
+  const { data } = await client.get("/mahasiswa");
+  return data;
+}
