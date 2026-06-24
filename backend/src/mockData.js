@@ -209,6 +209,7 @@ function makeLulusanTab(tahunAjar, seed) {
       "PERIODE 1": String(Math.floor(r() * 50 + 5)),
       "PERIODE 2": String(Math.floor(r() * 25 + 2)),
       "PERIODE 3": String(Math.floor(r() * 30 + 3)),
+      "PERIODE 4": String(Math.floor(r() * 10)),
     })),
   };
 }

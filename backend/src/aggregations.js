@@ -380,7 +380,7 @@ export function aggregateBeasiswa(rows) {
 /* =========================================================
    6. Data Lulusan per Tahun Ajar & Periode
    Input: tabData = [{ tahunAjar: "2025/2026", rows: [{
-     PRODI, "PERIODE 1", "PERIODE 2", "PERIODE 3"
+     PRODI, "PERIODE 1", "PERIODE 2", "PERIODE 3", "PERIODE 4"
    }] }]
    ========================================================= */
 export function aggregateLulusan(tabData) {
@@ -395,12 +395,14 @@ export function aggregateLulusan(tabData) {
       const p1 = toN(r["PERIODE 1"]);
       const p2 = toN(r["PERIODE 2"]);
       const p3 = toN(r["PERIODE 3"]);
+      const p4 = toN(r["PERIODE 4"]);
       return {
-        prodi:   String(r.PRODI || "").trim(),
+        prodi:    String(r.PRODI || "").trim(),
         periode1: p1,
         periode2: p2,
         periode3: p3,
-        total:   p1 + p2 + p3,
+        periode4: p4,
+        total:    p1 + p2 + p3 + p4,
       };
     });
     const totalTahun = prodiRows.reduce((s, r) => s + r.total, 0);

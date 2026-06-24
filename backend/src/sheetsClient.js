@@ -99,7 +99,7 @@ export function clearSheetCache() {
  * Membaca spreadsheet Data Lulusan yang punya format khusus:
  * - Setiap tab = satu tahun ajar (contoh: "2025/2026")
  * - Baris 1 = judul merged — di-skip dengan mulai baca dari A2
- * - Baris 2 = header: PRODI | PERIODE 1 | PERIODE 2 | PERIODE 3
+ * - Baris 2 = header: PRODI | PERIODE 1 | PERIODE 2 | PERIODE 3 | PERIODE 4
  * - Baris berikutnya = data prodi
  * - Baris TOTAL di-filter di sini agar tidak masuk agregasi
  *
@@ -133,7 +133,7 @@ export async function getLulusanData() {
       const response = await sheets.spreadsheets.values.get({
         spreadsheetId,
         // Kutip nama tab karena mengandung "/" — wajib pakai single quote
-        range: `'${tahunAjar}'!A2:D100`,
+        range: `'${tahunAjar}'!A2:E100`,
       });
       const values = response.data.values || [];
       const rows = rowsToObjects(values).filter((r) => {
