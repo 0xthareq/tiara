@@ -53,7 +53,6 @@ const phases = [
     items: [
       { text: "Grafik tren kelulusan multi-tahun", done: true },
       { text: "Donut chart distribusi karier alumni", done: true },
-      { text: "Bar chart perbandingan target vs capain IKU", done: false },
       { text: "Filter & drill-down berdasarkan tahun angkatan", done: true },
       { text: "Mode Demo dengan data contoh realistis", done: true },
     ],
@@ -69,8 +68,8 @@ const phases = [
     items: [
       { text: "Desain Perencanaan Data", done: true },
       { text: "Form Tracer Study dan Prestasi disebar", done: true },
+      { text: "Form Beasiswa", done: false },
       { text: "Optimasi tampilan mobile & responsif", done: false },
-      { text: "Mode gelap (dark mode)", done: false },
     ],
   },
   {
@@ -83,7 +82,6 @@ const phases = [
     color: "inkfaint",
     items: [
       { text: "Terintegrasi dengan Portal Akademik & Kemahasiswaan FMIPA Untan", done: false },
-      { text: "Mode Bahasa IND/ENG", done: false },
       { text: "Upgrade Hosting & Deployment", done: false },
       { text: "Penambahan Fitur Sesuai Kebutuhan", done: false },
     ],
