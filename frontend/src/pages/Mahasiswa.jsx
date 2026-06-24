@@ -12,8 +12,8 @@ export default function Mahasiswa() {
   return (
     <div>
       <PageHeader
-        title="Data Mahasiswa"
-        subtitle="Monitoring data mahasiswa aktif FMIPA Universitas Tanjungpura."
+        title="Data Lulusan Mahasiswa"
+        subtitle="Monitoring data lulusan mahasiswa FMIPA Universitas Tanjungpura."
       />
 
       {/* Under construction notice */}
@@ -25,7 +25,7 @@ export default function Mahasiswa() {
           Dashboard sedang disiapkan
         </h2>
         <p className="text-sm text-inksoft max-w-sm leading-relaxed mb-10">
-          Halaman ini akan menampilkan ringkasan data mahasiswa aktif FMIPA.
+          Halaman ini akan menampilkan ringkasan data lulusan mahasiswa FMIPA.
           Data akan tersinkronisasi otomatis dari sumber data yang terhubung.
         </p>
 
