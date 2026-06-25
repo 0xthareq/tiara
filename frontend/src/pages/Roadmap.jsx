@@ -47,7 +47,7 @@ const phases = [
     icon: BarChart3,
     label: "Fase 3",
     title: "Analitik & Visualisasi",
-    status: "active",
+    status: "done",
     period: "mar - Apr 2026",
     color: "azure",
     items: [
@@ -62,12 +62,12 @@ const phases = [
     icon: FileOutput,
     label: "Fase 4",
     title: "Pengumpulan Data & Aksesibilitas",
-    status: "planned",
+    status: "active",
     period: "Mei - Jul 2026",
     color: "amber",
     items: [
       { text: "Desain Perencanaan Data", done: true },
-      { text: "Form Tracer Study dan Prestasi disebar", done: true },
+      { text: "Form Tracer Study dan Prestasi disebar", done: false },
       { text: "Form Beasiswa", done: false },
       { text: "Optimasi tampilan mobile & responsif", done: false },
     ],
