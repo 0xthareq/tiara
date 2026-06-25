@@ -20,7 +20,7 @@ const NAV_MONITORING = [
 
 const NAV_DATA = [
   { to: "/dashboard/beasiswa",  label: "Data Beasiswa",          icon: Landmark        },
-  { to: "/dashboard/mahasiswa", label: "Data LulusanMahasiswa",         icon: Users           },
+  { to: "/dashboard/mahasiswa", label: "Data Lulusan Mahasiswa",         icon: Users           },
 ];
 
 function NavItem({ item, onClose }) {
