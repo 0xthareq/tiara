@@ -97,8 +97,11 @@ router.get(
     const prestasi    = aggregatePrestasi(prestasiRows);
     const kegiatan    = aggregateKegiatan(kegiatanRows);
 
+    const activeSummary = tracerStudy.summary.filter((s) => s.total > 0);
     const tepatWaktuRataRata =
-      tracerStudy.summary.reduce((sum, s) => sum + s.pct, 0) / (tracerStudy.summary.length || 1);
+      activeSummary.length > 0
+        ? activeSummary.reduce((sum, s) => sum + s.pct, 0) / activeSummary.length
+        : 0;
 
     respond(res, {
       totalAlumniTerdata:       tracerRows.length,
