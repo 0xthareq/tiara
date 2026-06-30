@@ -17,7 +17,7 @@ export function useApiData(fetchFn, deps = []) {
       setLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, deps);
+  }, [fetchFn, ...deps]);
 
   useEffect(() => {
     load();
