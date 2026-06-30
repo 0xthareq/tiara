@@ -22,7 +22,7 @@ const STATUS_COLORS = { Bekerja: "#1E4FDE", Wirausaha: "#2F9E5B", "Lanjut Studi"
 const BUCKET_COLORS = ["#2F9E5B", "#E08A2C", "#9BA0AC"];
 
 const currentYear = new Date().getFullYear();
-const TAHUN_OPTIONS = Array.from({ length: currentYear - 2020 }, (_, i) => currentYear - i);
+const TAHUN_OPTIONS = Array.from({ length: currentYear - 2010 }, (_, i) => currentYear - i);
 
 export default function Karier() {
   const [tahunPelaporan, setTahunPelaporan] = useState(String(currentYear));
