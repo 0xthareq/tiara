@@ -20,9 +20,9 @@ import { LoadingState, ErrorState } from "../components/StatusStates.jsx";
 
 const STATUS_COLORS = { Bekerja: "#1E4FDE", Wirausaha: "#2F9E5B", "Lanjut Studi": "#E08A2C", "Belum Bekerja": "#9BA0AC" };
 const BUCKET_COLORS = ["#2F9E5B", "#E08A2C", "#9BA0AC"];
-
+// length current year -2018 barti mulai 2018 dropdownnya
 const currentYear = new Date().getFullYear();
-const TAHUN_OPTIONS = Array.from({ length: currentYear - 2015}, (_, i) => currentYear - i);
+const TAHUN_OPTIONS = Array.from({ length: currentYear - 2018}, (_, i) => currentYear - i);
 
 export default function Karier() {
   const [tahunPelaporan, setTahunPelaporan] = useState(String(currentYear));
