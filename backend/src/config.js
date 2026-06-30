@@ -9,16 +9,20 @@ export const config = {
   port: num(process.env.PORT, 4000),
   corsOrigin: process.env.CORS_ORIGIN || "http://localhost:5173",
 
-  // Empat spreadsheet terpisah:
-  // - tracerStudy : Form Tracer Study Alumni
-  // - prestasi    : Form Prestasi & Kegiatan Luar Kampus
-  // - beasiswa    : Form Pendataan Beasiswa Mahasiswa Aktif
-  // - lulusan     : Database Lulusan FMIPA (multi-tab, 1 tab per tahun ajar)
+  // Lima spreadsheet:
+  // - tracerStudy    : Form Tracer Study Alumni
+  // - prestasi       : Form Prestasi & Kegiatan Luar Kampus (LAMA, Google Form)
+  //                     -> sekarang hanya dipakai untuk tab KegiatanLuarKampus
+  //                     -> data Prestasi-nya dinonaktifkan sementara, tab/data TIDAK dihapus
+  // - prestasiManual : Data Prestasi Mahasiswa hasil import Excel dari atasan (BARU, aktif)
+  // - beasiswa       : Form Pendataan Beasiswa Mahasiswa Aktif
+  // - lulusan        : Database Lulusan FMIPA (multi-tab, 1 tab per tahun ajar)
   spreadsheetIds: {
-    tracerStudy: process.env.SPREADSHEET_ID_TRACER   || "",
-    prestasi:    process.env.SPREADSHEET_ID_PRESTASI || "",
-    beasiswa:    process.env.SPREADSHEET_ID_BEASISWA || "",
-    lulusan:     process.env.SPREADSHEET_ID_LULUSAN  || "",
+    tracerStudy:    process.env.SPREADSHEET_ID_TRACER          || "",
+    prestasi:       process.env.SPREADSHEET_ID_PRESTASI        || "",
+    prestasiManual: process.env.SPREADSHEET_ID_PRESTASI_MANUAL || "",
+    beasiswa:       process.env.SPREADSHEET_ID_BEASISWA        || "",
+    lulusan:        process.env.SPREADSHEET_ID_LULUSAN         || "",
   },
 
   googleServiceAccountJson: process.env.GOOGLE_SERVICE_ACCOUNT_JSON || "",
@@ -50,11 +54,14 @@ export const isDemoMode = () => {
 };
 
 export const SHEET_NAMES = {
-  tracerStudy: { spreadsheetKey: "tracerStudy", tab: "TracerStudy_Kelulusan" },
-  karir:       { spreadsheetKey: "tracerStudy", tab: "TracerStudy_Karir"     },
-  prestasi:    { spreadsheetKey: "prestasi",    tab: "PrestasiMahasiswa"     },
-  kegiatan:    { spreadsheetKey: "prestasi",    tab: "KegiatanLuarKampus"    },
-  beasiswa:    { spreadsheetKey: "beasiswa",    tab: "Form Responses 1"      },
+  tracerStudy: { spreadsheetKey: "tracerStudy",    tab: "TracerStudy_Kelulusan" },
+  karir:       { spreadsheetKey: "tracerStudy",    tab: "TracerStudy_Karir"     },
+  // Prestasi sekarang dibaca dari spreadsheet baru (import Excel manual).
+  // Tab "PrestasiMahasiswa" di spreadsheet lama TIDAK dihapus, hanya
+  // sudah tidak dipakai sampai Google Form Prestasi disetujui lagi.
+  prestasi:    { spreadsheetKey: "prestasiManual", tab: "prestasi"              },
+  kegiatan:    { spreadsheetKey: "prestasi",        tab: "KegiatanLuarKampus"   },
+  beasiswa:    { spreadsheetKey: "beasiswa",        tab: "Form Responses 1"     },
   // Lulusan tidak pakai SHEET_NAMES karena dibaca via getLulusanData()
   // yang otomatis membaca semua tab dari spreadsheet.
 };

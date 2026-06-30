@@ -14,18 +14,12 @@ import { useApiData } from "../lib/useApiData.js";
 import PageHeader from "../components/PageHeader.jsx";
 import StatCard from "../components/StatCard.jsx";
 import ChartCard from "../components/ChartCard.jsx";
-import DataTable, { BuktiLinkCell } from "../components/DataTable.jsx";
+import DataTable from "../components/DataTable.jsx";
 import { LoadingState, ErrorState } from "../components/StatusStates.jsx";
 
-const CAPAIAN_COLORS = {
-  "Juara 1": "#1E4FDE",
-  "Juara 2": "#5B7FF0",
-  "Juara 3": "#9BB4F7",
-  "Harapan 1": "#2AA87A",
-  "Harapan 2": "#5EC9A0",
-  "Harapan 3": "#A0E4C8",
-  Finalis: "#E08A2C",
-  Favorit: "#9BA0AC",
+const JENIS_COLORS = {
+  "Kompetisi": "#1E4FDE",
+  "Aktivitas Kemahasiswaan": "#2AA87A",
 };
 
 export default function Prestasi() {
@@ -34,55 +28,54 @@ export default function Prestasi() {
   if (loading) return <LoadingState label="Memuat data prestasi mahasiswa..." />;
   if (error) return <ErrorState message={error.message} onRetry={reload} />;
 
-  const { summary, matrix, byTingkat, tableRows } = payload.data;
+  const { summary, matrix, byTingkat, jenisAktivitasOrder, tableRows } = payload.data;
 
   const columns = [
     { key: "NIM", label: "NIM" },
     { key: "Nama", label: "Nama" },
     { key: "ProgramStudi", label: "Program Studi" },
-    { key: "NamaKegiatan", label: "Nama Kegiatan/Lomba" },
+    { key: "NamaAktivitas", label: "Nama Aktivitas" },
+    { key: "JenisAktivitas", label: "Jenis Aktivitas" },
     { key: "Tingkat", label: "Tingkat" },
-    { key: "Capaian", label: "Capaian" },
     { key: "Tahun", label: "Tahun" },
-    { key: "BuktiLink", label: "Bukti", render: (row) => <BuktiLinkCell href={row.BuktiLink} /> },
   ];
 
   return (
     <div>
       <PageHeader
         title="Prestasi Mahasiswa"
-        subtitle="Rekap mahasiswa yang meraih prestasi di berbagai tingkat: internasional, nasional, provinsi, universitas, dan fakultas."
+        subtitle="Rekap mahasiswa yang meraih prestasi dan mengikuti aktivitas kemahasiswaan di berbagai tingkat."
         demoMode={payload.meta.demoMode}
       />
 
-      <div className="grid sm:grid-cols-3 gap-4">
-        <StatCard icon={Trophy} label="Total Prestasi Tercatat" value={summary.total} />
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <StatCard icon={Trophy} label="Total Tercatat" value={summary.total} />
         {byTingkat.map((t) => (
-          <StatCard key={t.tingkat} icon={Trophy} label={`Tingkat ${t.tingkat}`} value={t.jumlah} />
+          <StatCard key={t.tingkat} icon={Trophy} label={t.tingkat} value={t.jumlah} />
         ))}
       </div>
 
       <ChartCard
-        title="Capaian per Tingkat Kompetisi"
-        subtitle="Juara 1, Juara 2/3, finalis, dan favorit pada setiap tingkat"
+        title="Sebaran per Tingkat"
+        subtitle="Breakdown kompetisi vs aktivitas kemahasiswaan pada setiap tingkat"
         className="mt-6"
       >
         <ResponsiveContainer width="100%" height={280}>
           <BarChart data={matrix} barSize={26}>
             <CartesianGrid vertical={false} stroke="#E4E1D6" />
-            <XAxis dataKey="tingkat" tick={{ fontSize: 12, fill: "#5B6172" }} axisLine={false} tickLine={false} />
+            <XAxis dataKey="tingkat" tick={{ fontSize: 11, fill: "#5B6172" }} axisLine={false} tickLine={false} />
             <YAxis tick={{ fontSize: 12, fill: "#5B6172" }} axisLine={false} tickLine={false} allowDecimals={false} />
             <Tooltip />
             <Legend wrapperStyle={{ fontSize: 12 }} />
-            {Object.keys(CAPAIAN_COLORS).map((capaian) => (
-              <Bar key={capaian} dataKey={capaian} stackId="a" fill={CAPAIAN_COLORS[capaian]} radius={[0, 0, 0, 0]} />
+            {jenisAktivitasOrder.map((jenis) => (
+              <Bar key={jenis} dataKey={jenis} stackId="a" fill={JENIS_COLORS[jenis] || "#9BA0AC"} radius={[0, 0, 0, 0]} />
             ))}
           </BarChart>
         </ResponsiveContainer>
       </ChartCard>
 
       <div className="mt-6">
-        <DataTable columns={columns} rows={tableRows} searchKeys={["Nama", "NIM", "ProgramStudi", "NamaKegiatan"]} />
+        <DataTable columns={columns} rows={tableRows} searchKeys={["Nama", "NIM", "ProgramStudi", "NamaAktivitas"]} />
       </div>
     </div>
   );

@@ -194,39 +194,84 @@ export function aggregateKarir(rows, targets, tahunPelaporan) {
 
 /* =========================================================
    3. Prestasi Mahasiswa
+   Sumber: data import Excel manual dari pimpinan fakultas
+   (Google Form Prestasi lama dinonaktifkan sementara,
+   menunggu persetujuan pimpinan — data lama TIDAK dihapus).
+
+   Kolom dari Sheet (sesuai header Excel):
+   NIM | Nama | Program Studi | Jenis Aktivitas |
+   Tanggal Pengajuan | Tanggal Mulai Aktivitas |
+   Tanggal Akhir Aktivitas | Nama Aktivitas | Tingkat Prestasi |
+   Status Valid | SKPI | Poin | validator
+   (Status Valid / SKPI / Poin / validator sengaja tidak dipakai)
+
+   Catatan: data ini TIDAK punya kolom "Capaian" (Juara 1/2/3,
+   Finalis, dll) seperti Google Form lama — jadi breakdown
+   matrix diganti per Jenis Aktivitas, bukan per Capaian.
    ========================================================= */
-const TINGKAT_ORDER = ["Internasional", "Nasional", "Provinsi", "Universitas", "Fakultas"];
-const CAPAIAN_ORDER = ["Juara 1", "Juara 2", "Juara 3", "Harapan 1", "Harapan 2", "Harapan 3", "Finalis", "Favorit"];
+const TINGKAT_ORDER = [
+  "Internasional",
+  "Nasional",
+  "Regional",
+  "Provinsi",
+  "Kabupaten/Kota",
+  "Sekolah",
+  "Lainnya",
+];
+const JENIS_AKTIVITAS_ORDER = ["Kompetisi", "Aktivitas Kemahasiswaan"];
+
+// Ambil 4 digit tahun dari tanggal mulai aktivitas (format umum: YYYY-MM-DD).
+// Dipakai untuk tren tahunan karena lebih merepresentasikan kapan
+// prestasi/aktivitas itu terjadi (bukan kapan diajukan/diinput ke sheet).
+function deriveTahun(raw) {
+  const match = String(raw || "").match(/\d{4}/);
+  return match ? match[0] : "";
+}
 
 export function aggregatePrestasi(rows) {
+  const enriched = rows
+    .map((r) => ({
+      NIM:            r.NIM || "",
+      Nama:           r.Nama || "",
+      ProgramStudi:   r["Program Studi"] || "",
+      JenisAktivitas: String(r["Jenis Aktivitas"] || "").trim(),
+      NamaAktivitas:  r["Nama Aktivitas"] || "",
+      Tingkat:        String(r["Tingkat Prestasi"] || "").trim(),
+      Tahun:          deriveTahun(r["Tanggal Mulai Aktivitas"]),
+    }))
+    // Buang baris kosong / header yang nyasar ikut ke-import
+    .filter((r) => r.Nama && r.Tingkat && r.NIM !== "NIM");
+
+  // Matrix: Tingkat x Jenis Aktivitas (pengganti Tingkat x Capaian)
   const matrix = TINGKAT_ORDER.map((tingkat) => {
     const row = { tingkat };
-    CAPAIAN_ORDER.forEach((capaian) => {
-      row[capaian] = rows.filter((r) => r.Tingkat === tingkat && r.Capaian === capaian).length;
+    JENIS_AKTIVITAS_ORDER.forEach((jenis) => {
+      row[jenis] = enriched.filter((r) => r.Tingkat === tingkat && r.JenisAktivitas === jenis).length;
     });
-    row.total = rows.filter((r) => r.Tingkat === tingkat).length;
+    row.total = enriched.filter((r) => r.Tingkat === tingkat).length;
     return row;
   });
 
   const byTingkat = TINGKAT_ORDER.map((tingkat) => ({
     tingkat,
-    jumlah: rows.filter((r) => r.Tingkat === tingkat).length,
-  }));
+    jumlah: enriched.filter((r) => r.Tingkat === tingkat).length,
+  })).filter((t) => t.jumlah > 0 || TINGKAT_ORDER.includes(t.tingkat));
 
   const trendMap = new Map();
-  rows.forEach((r) => {
-    trendMap.set(r.Tahun, (trendMap.get(r.Tahun) || 0) + 1);
+  enriched.forEach((r) => {
+    if (r.Tahun) trendMap.set(r.Tahun, (trendMap.get(r.Tahun) || 0) + 1);
   });
   const trend = Array.from(trendMap.entries())
     .map(([tahun, jumlah]) => ({ tahun, jumlah }))
     .sort((a, b) => (a.tahun > b.tahun ? 1 : -1));
 
   return {
-    summary: { total: rows.length },
+    summary: { total: enriched.length },
     matrix,
     byTingkat,
+    jenisAktivitasOrder: JENIS_AKTIVITAS_ORDER,
     trend,
-    tableRows: rows.map((r) => ({ ...r, BuktiLink: toViewableDriveLink(r.BuktiLink) })),
+    tableRows: enriched,
   };
 }
 
