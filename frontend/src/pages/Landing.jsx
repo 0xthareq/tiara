@@ -63,7 +63,7 @@ export default function Landing() {
             />
           </svg>
           <h1 className="relative font-display font-bold tracking-tight text-[15vw] sm:text-7xl md:text-8xl leading-none bg-gradient-to-br from-ink via-azure to-azuredeep bg-clip-text text-transparent">
-            F I ℕ T Λ
+            F I N T Λ
           </h1>
         </div>
 
