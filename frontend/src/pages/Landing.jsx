@@ -63,13 +63,13 @@ export default function Landing() {
             />
           </svg>
           <h1 className="relative font-display font-bold tracking-tight text-[15vw] sm:text-7xl md:text-8xl leading-none bg-gradient-to-br from-ink via-azure to-azuredeep bg-clip-text text-transparent">
-            T I Λ R Λ
+            F I ℕ T Λ
           </h1>
         </div>
 
         {/* Tagline */}
         <p className="relative font-serif italic text-xl sm:text-2xl text-inksoft mt-5 mb-4">
-          <b>T</b>racer Study &middot; <b>I</b>nformasi <b>A</b>lumni &middot; P<b>r</b>estasi Mahasisw<b>a</b>
+          <b>Fakultas MIPA dalam Angka</b>
         </p>
 
         {/* Subtitle */}
