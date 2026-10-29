@@ -218,7 +218,7 @@ export default function MaintenancePage({
 
       <footer className={styles.footer}>
         <p className={styles.copyright}>
-          © {year} TIARA — Fakultas MIPA, Universitas Tanjungpura
+          © {year} Akademik & Kemahasiswaan — Fakultas MIPA, Universitas Tanjungpura
         </p>
       </footer>
     </div>
