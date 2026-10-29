@@ -1,0 +1,238 @@
+/* TIARA – MaintenancePage.module.css
+   Diadaptasi dari BSmart Education.
+   Logika & timing animasi identik, warna diganti ke TIARA palette.
+   ──────────────────────────────────────────────────────────────── */
+
+/* ── LAYOUT ─────────────────────────────────────────────────── */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  padding: 24px;
+  box-sizing: border-box;
+  background-color: #060A14; /* TIARA dark background */
+  font-family: "Geist", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+}
+
+/* ── ERROR BLOCK ─────────────────────────────────────────────── */
+.error {
+  width: 400px;
+  max-width: 100%;
+  padding: 40px;
+  text-align: center;
+}
+
+.error h1 {
+  font-size: 110px;
+  padding: 0;
+  margin: 0;
+  font-weight: 800;
+  /* TIARA blue gradient */
+  background: linear-gradient(135deg, #5B8DF5, #9B6DFF);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.04em;
+}
+
+.error h2 {
+  margin: -20px 0 0 0;
+  padding: 0;
+  font-size: 20px;
+  letter-spacing: 6px;
+  color: #8A92B8;  /* TIARA muted text */
+  font-weight: 700;
+}
+
+.error p {
+  color: #8A92B8;
+  line-height: 1.7;
+  margin-top: 14px;
+  font-size: 14px;
+}
+
+.link {
+  color: #5B8DF5;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.subtitle {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #3D4468; /* TIARA dim text */
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+
+/* ── CARD STACK ──────────────────────────────────────────────── */
+.stackContainer {
+  position: relative;
+  width: 420px;
+  height: 210px;
+  transition: width 1s, height 1s;
+}
+
+.perspec {
+  perspective: 1000px;
+}
+
+.card {
+  position: absolute;
+  animation: tiltcard 0.5s ease-in-out 1s forwards;
+}
+
+.explode {
+  animation: explode 0.5s ease-in-out forwards;
+}
+
+.pokeup {
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.pokeup:hover {
+  transform: translateY(-10px);
+}
+
+/* ── WRITING CARD ────────────────────────────────────────────── */
+.writing {
+  width: 320px;
+  height: 200px;
+  background-color: #0D1220; /* TIARA card dark */
+  border: 1px solid #1B2345;
+  border-radius: 8px 8px 6px 6px;
+  position: relative;
+  /* Biru TIARA sebagai glow */
+  box-shadow: 0 12px 32px -8px rgba(91, 141, 245, 0.2);
+}
+
+.writingError {
+  animation: glitchError 2.5s infinite;
+}
+
+/* ── TOP BAR (traffic lights) ────────────────────────────────── */
+.topbar {
+  position: absolute;
+  width: 100%;
+  height: 14px;
+  background-color: #0B1020;
+  border-top-left-radius: 7px;
+  border-top-right-radius: 7px;
+}
+
+.topbar div {
+  height: 6px;
+  width: 6px;
+  border-radius: 50%;
+  margin: 4px;
+  float: left;
+}
+
+.green  { background-color: #06D6A0; } /* TIARA teal */
+.red    { background-color: #FF5B5B; } /* TIARA red  */
+.yellow { background-color: #9B6DFF; } /* TIARA violet sebagai "yellow" slot */
+
+/* ── CODE LINES ──────────────────────────────────────────────── */
+.code {
+  padding: 18px 15px;
+  padding-top: 26px;
+}
+
+.code ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.code ul li {
+  background-color: #1B2345; /* TIARA border/dim */
+  width: 0;
+  height: 7px;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+/* Baris terakhir pakai warna biru TIARA */
+.errorLine {
+  background-color: #5B8DF5 !important;
+  width: 0;
+  height: 7px;
+  border-radius: 6px;
+  margin: 10px 0;
+}
+
+.writeLine {
+  animation: writeLine 0.4s linear forwards;
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: 40px;
+  border-top: 1px solid #1B2345;
+  width: 100%;
+  background: rgba(6, 10, 20, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+.copyright {
+  position: absolute;
+  margin: 0;
+  top: 10px;
+  width: 100%;
+  color: #3D4468;
+  font-size: 12px;
+  text-align: center;
+  letter-spacing: 0.03em;
+}
+
+/* ── KEYFRAMES ───────────────────────────────────────────────── */
+@keyframes tiltcard {
+  0%   { transform: rotateY(0deg); }
+  100% { transform: rotateY(-30deg); }
+}
+
+@keyframes explode {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(var(--spreaddist), var(--vertdist)) scale(var(--scaledist)); }
+}
+
+@keyframes writeLine {
+  0%   { width: 0; }
+  100% { width: var(--linelength); }
+}
+
+@keyframes glitchError {
+  0%   { transform: none; opacity: 1; }
+  7%   { transform: skew(-0.5deg, -0.9deg); opacity: 0.85; }
+  10%  { transform: none; opacity: 1; }
+  27%  { transform: none; opacity: 1; }
+  30%  { transform: skew(0.8deg, -0.1deg); opacity: 0.85; }
+  35%  { transform: none; opacity: 1; }
+  52%  { transform: none; opacity: 1; }
+  55%  { transform: skew(-1deg, 0.2deg); opacity: 0.85; }
+  72%  { transform: none; opacity: 1; }
+  75%  { transform: skew(0.4deg, 1deg); opacity: 0.85; }
+  80%  { transform: none; opacity: 1; }
+  100% { transform: none; opacity: 1; }
+}
+
+/* ── RESPONSIVE ──────────────────────────────────────────────── */
+@media screen and (max-width: 1000px) {
+  .container { transform: scale(0.85); }
+}
+@media screen and (max-width: 850px) {
+  .container { transform: scale(0.75); }
+}
+@media screen and (max-width: 775px) {
+  .container { flex-wrap: wrap-reverse; align-items: inherit; }
+}
+@media screen and (max-width: 370px) {
+  .container { transform: scale(0.6); }
+}

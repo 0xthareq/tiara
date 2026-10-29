@@ -9,22 +9,25 @@ import Kegiatan from "./pages/Kegiatan.jsx";
 import Roadmap from "./pages/Roadmap.jsx";
 import Beasiswa from "./pages/Beasiswa.jsx";
 import Mahasiswa from "./pages/Mahasiswa.jsx";
+import MaintenanceGuard from "./components/MaintenanceGuard";
 
 export default function App() {
   return (
-    <Routes>
-      <Route path="/" element={<Landing />} />
+    <MaintenanceGuard>
+      <Routes>
+        <Route path="/" element={<Landing />} />
 
-      <Route path="/dashboard" element={<Layout />}>
-        <Route index element={<Overview />} />
-        <Route path="kelulusan" element={<Kelulusan />} />
-        <Route path="karier" element={<Karier />} />
-        <Route path="prestasi" element={<Prestasi />} />
-        <Route path="kegiatan" element={<Kegiatan />} />
-        <Route path="roadmap" element={<Roadmap />} />
-        <Route path="beasiswa" element={<Beasiswa />} />
-        <Route path="mahasiswa" element={<Mahasiswa />} />
-      </Route>
-    </Routes>
+        <Route path="/dashboard" element={<Layout />}>
+          <Route index element={<Overview />} />
+          <Route path="kelulusan" element={<Kelulusan />} />
+          <Route path="karier" element={<Karier />} />
+          <Route path="prestasi" element={<Prestasi />} />
+          <Route path="kegiatan" element={<Kegiatan />} />
+          <Route path="roadmap" element={<Roadmap />} />
+          <Route path="beasiswa" element={<Beasiswa />} />
+          <Route path="mahasiswa" element={<Mahasiswa />} />
+        </Route>
+      </Routes>
+    </MaintenanceGuard>
   );
 }
