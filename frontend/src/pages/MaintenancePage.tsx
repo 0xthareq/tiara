@@ -52,7 +52,7 @@ export default function MaintenancePage({
       Platform FMIPA dalam angka sedang dalam pemeliharaan. Mohon maaf atas ketidaknyamanannya.
       Info lebih lanjut silahkan hubungi{" "}
       <a
-        href="https://wa.me/6285787908406?text=Halo%2C%20saya%20mau%20tanya%20soal%20BSmart%20Education"
+        href="https://wa.me/6285787908406?text=Halo%2C%20saya%20mau%20tanya%20soal%20FMIPA%20Dalam%20Angka"
         target="_blank"
         rel="noopener noreferrer"
         className={styles.link}
