@@ -23,7 +23,7 @@
  *   (Set ke false atau hapus variabelnya untuk kembali normal)
  */
 
-import MaintenancePage from "./MaintenancePage";
+import MaintenancePage from "../pages/MaintenancePage";
 
 type Props = {
   children: React.ReactNode;
